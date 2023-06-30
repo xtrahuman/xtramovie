@@ -32,9 +32,9 @@ const NavVariable = [
   
   const Navbar = () => {
     return (
-      <Container>
-      <nav className="navBar a-center flex items-center justify-between py-5">
-        <div className="nav-header a-center flex items-center gap-x-3">
+      <Container className="relative">
+      <nav className="flex font-semibold items-center z-[9] justify-between py-5 px-10 uppercase absolute top-0 w-full left-0">
+        <div className="nav-header a-center flex items-center gap-x-3 w-40%">
           <img className='w-8 h-8' src={Icon} alt="logo" />
           <h1 className="text-blue-600">xtraMovie</h1>
         </div>

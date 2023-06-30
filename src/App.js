@@ -8,10 +8,8 @@ import AllTvshows from "./components/alltvshow";
 function App() {
   return (
     <Router>
-    <div className="App">
-      <header>
+    <div className="App relative w-full">
         <Navbar />
-      </header>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={< AllMovies/>} />

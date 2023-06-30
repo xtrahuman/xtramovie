@@ -1,8 +1,14 @@
+import HeroSection from "./hero";
+import Container from "./container";
 const AllMovies = () => {
   
     return (
-      <div className="flex">
-        movies
+      <div className="">
+        <HeroSection/>
+        <Container>
+            
+            movies
+        </Container>
       </div>
     );
   };

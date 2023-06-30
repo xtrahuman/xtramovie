@@ -5,7 +5,7 @@ export default function Container({
     return (
       <div
         {...rest}
-        className={`mx-6 ${className}`}
+        className={`px-8 w-full ${className}`}
         >
         {children}
       </div>
