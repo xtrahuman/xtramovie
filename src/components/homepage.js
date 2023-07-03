@@ -21,7 +21,7 @@ const Home = () => {
     {
       id: 'movie3',
       name: 'star trek 4',
-      image: 'https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg'
+      image: 'https://image.tmdb.org/t/p/original/p3pHw85UMZPegfMZBA6dZ06yarm.jpg'
 
     },
     {
@@ -33,7 +33,7 @@ const Home = () => {
     {
       id: 'movie4',
       name: 'star trek 5',
-      image: 'https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg'
+      image: 'https://image.tmdb.org/t/p/original/5W5uaqQ7NZTwoDMKO4AtdcahHex.jpg'
 
     },
     {
