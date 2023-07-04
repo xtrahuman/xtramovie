@@ -144,7 +144,7 @@ const Home = () => {
         {filter.map(({ id, filterName, items },filterIndex) => (
           <Menu key={id} as="div" className="flex relative">
             <Menu.Button>{filterName}</Menu.Button>
-            <Menu.Items className="flex flex-col w-[150px] absolute top-9">
+            <Menu.Items className="flex flex-col w-[150px] z-10 absolute top-9">
               {items.map(({ id, name },index) => (
                 <Menu.Item key={id}>
                   {({ active }) => (
