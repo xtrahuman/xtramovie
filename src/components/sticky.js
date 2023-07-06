@@ -9,7 +9,7 @@ const useSticky = () => {
     if (!stickyRef.current) {
       return;
     }
-    setOffset(stickyRef.current.offsetTop+300);
+    setOffset(stickyRef.current.offsetTop+200);
   }, [stickyRef, setOffset]);
 
   useEffect(() => {

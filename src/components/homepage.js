@@ -133,11 +133,24 @@ const Home = () => {
     <div className="">
       <HeroSection backgroundUrl="https://image.tmdb.org/t/p/original/vsjuHP9RQZJgYUvvSlO3mjJpXkq.jpg">
         <Container className="py-[200px]">
-          <h1 className="text-[60px] w-[50%] font-bold font-['poppins'] pt-[250px] pb-[230px] z-[8] absolute top-0 bottom-0">
-            <span className="text-[#e4d804] text-[32px]">Xtramovie</span> <br />
+          <div className="z-[8] absolute top-0 w-[50%] bottom-0 pb-[230px] pt-[250px] hero">
+          <h1 className="text-[60px] font-bold font-['poppins']">
+            <span className="text-[#e4d804] text-[32px] h-span ">Xtramovie</span> <br />
             Unlimited <span className="text-[#e4d804]">Movie</span>, TVs Shows,
             & More.
           </h1>
+          <button
+            className="hover:text-[#e4d804] flex gap-x-2 items-center bg-[#0D1B2A] px-4 py-4 border-4 border-[#e4d804] rounded-xl "
+            onClick={() => console.log("working")}
+          >
+            <span>watch trailer</span>
+            <a className="play-btn" href="#"></a>
+          </button>
+
+          </div>
+          {/* <iframe className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[10]" width="500px" height="400px" src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1">
+</iframe> */}
+
         </Container>
       </HeroSection>
       <Container>
@@ -189,9 +202,10 @@ const Home = () => {
         <MovieGrid movies={movies} />
       </Container>
       <div className="flex flex-col">
-        <h2>other movie suggestions</h2>
+        <h2 className="text-3xl mt-10 mb-5">Other movie suggestions</h2>
         <MovieSlider movies={movies} />
       </div>
+      <hr className="border-1 border-[#0D1B2A] mt-10"></hr>
       <Container>
         <FooterSection />
       </Container>
