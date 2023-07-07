@@ -5,8 +5,10 @@ import Container from "./container";
 import MovieGrid from "./moviegrid";
 import MovieSlider from "./movieslider";
 import FooterSection from "./footer";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
   const movies = [
     {
       id: "movie1",
@@ -141,15 +143,13 @@ const Home = () => {
           </h1>
           <button
             className="hover:text-[#e4d804] flex gap-x-2 items-center bg-[#0D1B2A] px-4 py-4 border-4 border-[#e4d804] rounded-xl "
-            onClick={() => console.log("working")}
+            onClick={() => navigate(`/movies/${1}/details`)}
           >
             <span>watch trailer</span>
-            <a className="play-btn" href="#"></a>
+            <span className="play-btn" ></span>
           </button>
 
           </div>
-          {/* <iframe className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] z-[10]" width="500px" height="400px" src="https://www.youtube.com/embed/tgbNymZ7vqY?controls=1">
-</iframe> */}
 
         </Container>
       </HeroSection>

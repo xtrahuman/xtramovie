@@ -3,12 +3,15 @@ import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import "react-horizontal-scrolling-menu/dist/styles.css";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { BsArrowLeftCircle } from "react-icons/bs";
+// import { useSwipe } from "../swipe";
 
 
 function MovieSlider({movies}) {
   const [items, setItems] = useState(movies);
   const [selected, setSelected] = useState([]);
   const [position, setPosition] = useState(0);
+//   const { scrollPrev } = useContext(VisibilityContext);
+//   const { scrollNext } = useContext(VisibilityContext);
 
   const isItemSelected = (id) => !!selected.find((el) => el === id);
 
@@ -25,7 +28,7 @@ function MovieSlider({movies}) {
     };
 
   return (
-    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
+    <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} >
       {items.map(( movie ) => (
         <Card
           itemId={movie.id} // NOTE: itemId is required for track items
@@ -37,6 +40,22 @@ function MovieSlider({movies}) {
     </ScrollMenu>
   );
 }
+
+// function onWheel(){
+//     ev = React.WheelEvent
+//     const isThouchpad = Math.abs(ev.deltaX) !== 0 || Math.abs(ev.deltaY) < 15;
+  
+//     if (isThouchpad) {
+//       ev.stopPropagation();
+//       return;
+//     }
+  
+//     if (ev.deltaY < 0) {
+//       scrollNext();
+//     } else if (ev.deltaY > 0) {
+//       scrollPrev();
+//     }
+//   }
 
 function LeftArrow() {
   const { isFirstItemVisible, scrollPrev } =
@@ -74,7 +93,7 @@ function Card({ onClick, movie}) {
          />
          <div className="movie-overlay cursor-pointer px-4 py-3 grid grid-cols-3 justify-between absolute top-0 bottom-0 left-0 right-0 rounded-3xl"></div>
        </div>
-       <div className="flex justify-between px-4 my-3">
+       <div className="flex flex-col items-center px-4 my-3">
          <h4>{movie.name}</h4>
          <span>2021</span>
        </div>
