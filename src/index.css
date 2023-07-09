@@ -29,7 +29,7 @@ body {
 
 .movie-overlay{
   opacity: 0;
-  background: linear-gradient(rgba(255, 0, 0, 0.5), #0D1B2A)
+  background: linear-gradient(rgba(32, 31, 1, 0.415), #0D1B2A)
 }
 
 .movie-overlay:hover {
@@ -172,7 +172,21 @@ body {
   .mobile-flex-ft{
     flex-basis: 50%;
   }
+
+  .mobile-details-width {
+    width: 100%
   }
+
+  .mobile-details-h1 {
+    font-size: 32px;
+  }
+
+  .mobile-flex-moviedetail {
+    column-gap: 8px;
+  }
+
+  }
+
 
 .react-horizontal-scrolling-menu--scroll-container {
   overflow: hidden;
@@ -280,4 +294,25 @@ body {
 
   }
 }
+
+.custom-textarea {
+  border: 1px solid #0D1B2A;
+  transition: border-color 0.3s ease;
+}
+
+.custom-textarea:focus {
+  outline: none;
+  border: 1px solid;
+  border-color: #e4d804;
+}
+
+.crop-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* input:focus {
+
+} */
 

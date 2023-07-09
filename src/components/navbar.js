@@ -4,7 +4,6 @@ import Icon from "../asset/planet.png";
 import Container from "./container";
 import useSticky from "./sticky";
 
-
 // mobileToggle.addEventListener('click', mobilemenu);
 
 const NavVariable = [
@@ -29,29 +28,35 @@ const NavVariable = [
     link: "/contact",
   },
   {
-    id: 4,
+    id: 5,
     name: "signIn",
     link: "/signIn",
   },
 ];
 
 const Navbar = () => {
-  const mobileToggle = document.querySelector('#mobile_menu');
-const nav = document.querySelector('.nav-flex');
-const bodyfixed = document.querySelector('body');
+  const mobileToggle = document.querySelector("#mobile_menu");
+  const nav = document.querySelector(".nav-flex");
+  const bodyfixed = document.querySelector("body");
   const { sticky, stickyRef } = useSticky();
 
+
   const mobilemenu = () => {
-    mobileToggle.classList.toggle('toggle-menu');
-    nav.classList.toggle('toggle');
-    bodyfixed.classList.toggle('static');
+    mobileToggle.classList.toggle("toggle-menu");
+    nav.classList.toggle("toggle");
+    bodyfixed.classList.toggle("static");
+    console.log(nav.classList.contains("toggle"))
   };
   return (
     <Container className="relative">
-      <div className="menubar absolute z-[11]" id="mobile_menu" onClick={ mobilemenu }>
-          <div class="vector"></div>
-          <div class="vector"></div>
-          <div class="vector"></div>
+      <div
+        className="menubar absolute z-[11]"
+        id="mobile_menu"
+        onClick={mobilemenu}
+      >
+        <div className="vector"></div>
+        <div className="vector"></div>
+        <div className="vector"></div>
       </div>
       <nav
         ref={stickyRef}
@@ -71,6 +76,7 @@ const bodyfixed = document.querySelector('body');
                 className={(navData) =>
                   navData.isActive ? "text-[#e4d804]" : ""
                 }
+                onClick={mobilemenu}
               >
                 {NavVar.name}
               </NavLink>

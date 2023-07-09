@@ -1,64 +1,23 @@
 import HeroSection from "./hero";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu } from "@headlessui/react";
+import { useSelector, useDispatch } from "react-redux";
 import Container from "./container";
 import MovieGrid from "./moviegrid";
 import MovieSlider from "./movieslider";
-import FooterSection from "./footer";
 import { useNavigate } from "react-router-dom";
+import getMovies from "../redux/movies/action";
 
 const Home = () => {
-  const navigate = useNavigate()
-  const movies = [
-    {
-      id: "movie1",
-      name: "star trek",
-      image:
-        "https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg",
-    },
-    {
-      id: "movie2",
-      name: "star trek 1",
-      image:
-        "https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg",
-    },
-    {
-      id: "movie3",
-      name: "star trek 4",
-      image:
-        "https://image.tmdb.org/t/p/original/p3pHw85UMZPegfMZBA6dZ06yarm.jpg",
-    },
-    {
-      id: "movie3",
-      name: "star trek 4",
-      image:
-        "https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg",
-    },
-    {
-      id: "movie4",
-      name: "star trek 5",
-      image:
-        "https://image.tmdb.org/t/p/original/5W5uaqQ7NZTwoDMKO4AtdcahHex.jpg",
-    },
-    {
-      id: "movie5",
-      name: "star trek 6",
-      image:
-        "https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg",
-    },
-    {
-      id: "movie6",
-      name: "star trek 7",
-      image:
-        "https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg",
-    },
-    {
-      id: "movie7",
-      name: "star trek 8",
-      image:
-        "https://image.tmdb.org/t/p/original/xQCMAHeg5M9HpDIqanYbWdr4brB.jpg",
-    },
-  ];
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getMovies());
+  }, [dispatch]);
+
+  const { loading, movies } = useSelector((state) => state.trendMovies);
+
   const filterDropDowns = [
     {
       id: "genres",
@@ -131,26 +90,33 @@ const Home = () => {
 
   const [filter, setFilter] = useState(filterDropDowns);
   const [selectedButton, setSelectButton] = useState("popular");
+  if (loading) {
+    return <p>loading</p>;
+  }
+
+  // console.log(loading,movies)
+
   return (
-    <div className="">
+    <div className="tes">
       <HeroSection backgroundUrl="https://image.tmdb.org/t/p/original/vsjuHP9RQZJgYUvvSlO3mjJpXkq.jpg">
         <Container className="py-[200px]">
           <div className="z-[8] absolute top-0 w-[50%] bottom-0 pb-[230px] pt-[250px] hero">
-          <h1 className="text-[60px] font-bold font-['poppins']">
-            <span className="text-[#e4d804] text-[32px] h-span ">Xtramovie</span> <br />
-            Unlimited <span className="text-[#e4d804]">Movie</span>, TVs Shows,
-            & More.
-          </h1>
-          <button
-            className="hover:text-[#e4d804] flex gap-x-2 items-center bg-[#0D1B2A] px-4 py-4 border-4 border-[#e4d804] rounded-xl "
-            onClick={() => navigate(`/movies/${1}/details`)}
-          >
-            <span>watch trailer</span>
-            <span className="play-btn" ></span>
-          </button>
-
+            <h1 className="text-[60px] font-bold font-['poppins']">
+              <span className="text-[#e4d804] text-[32px] h-span ">
+                Xtramovie
+              </span>{" "}
+              <br />
+              Unlimited <span className="text-[#e4d804]">Movie</span>, TVs
+              Shows, & More.
+            </h1>
+            <button
+              className="hover:text-[#e4d804] flex gap-x-2 items-center bg-[#0D1B2A] px-4 py-4 border-4 border-[#e4d804] rounded-xl "
+              onClick={() => navigate(`/movies/${1}/details`)}
+            >
+              <span>watch trailer</span>
+              <span className="play-btn"></span>
+            </button>
           </div>
-
         </Container>
       </HeroSection>
       <Container>
@@ -205,10 +171,6 @@ const Home = () => {
         <h2 className="text-3xl mt-10 mb-5">Other movie suggestions</h2>
         <MovieSlider movies={movies} />
       </div>
-      <hr className="border-1 border-[#0D1B2A] mt-10"></hr>
-      <Container>
-        <FooterSection />
-      </Container>
     </div>
   );
 };

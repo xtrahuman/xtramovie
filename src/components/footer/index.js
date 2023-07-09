@@ -2,6 +2,7 @@ import githubIcon from "../../asset/icons8-github.svg"
 import linkedinIcon from "../../asset/icons8-linkedin.svg"
 import mediumIcon from "../../asset/icons8-medium.svg"
 import twitterIcon from "../../asset/icons8-twitter.svg"
+import Container from "../container"
 
 const FooterSection = () => {
 
@@ -29,14 +30,15 @@ const FooterSection = () => {
     ]
 
     return (
+        <Container>
         <footer className="flex w-full mt-10 mb-6 flex-wrap">
             <ul className="flex flex-wrap bg-yellow gap-y-3 justify-between w-full footer-other">
                 {
                     footerTile.map(({heading, childs, childUrls}) =>
-                    <li className="flex basis-1/4 flex-col mobile-flex-ft">
+                    <li key={heading} className="flex basis-1/4 flex-col mobile-flex-ft">
                         <h5>{heading}</h5>
                         {childs.map((child,index) => 
-                        <a href={childUrls[index]} className="text-[#ffffffb3]">{child}</a>
+                        <a href={childUrls[index]} key={child} className="text-[#ffffffb3]">{child}</a>
                         )}
                     </li>
                     )
@@ -52,6 +54,7 @@ const FooterSection = () => {
                 </div>
             </div>
         </footer>
+   </Container>
     );
   };
   

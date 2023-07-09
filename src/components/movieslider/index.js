@@ -35,6 +35,7 @@ function MovieSlider({movies}) {
           movie = {movie}
           onClick={handleClick(movie.id)}
           selected={isItemSelected(movie.id)}
+          key={movie.id}
         />
       ))}
     </ScrollMenu>
@@ -85,7 +86,7 @@ function Card({ onClick, movie}) {
       }}
       tabIndex={0}
     >
-       <div key={movie.id} className="w-full relative rounded-3xl">
+       <div className="w-full relative rounded-3xl">
          <img
            className="w-full lg:h-[auto] md:h-[auto] rounded-3xl"
            src={movie.image}
@@ -94,7 +95,7 @@ function Card({ onClick, movie}) {
          <div className="movie-overlay cursor-pointer px-4 py-3 grid grid-cols-3 justify-between absolute top-0 bottom-0 left-0 right-0 rounded-3xl"></div>
        </div>
        <div className="flex flex-col items-center px-4 my-3">
-         <h4>{movie.name}</h4>
+         <h4 className="crop-text w-[120px] text-center">{movie.name}</h4>
          <span>2021</span>
        </div>
      </div>
