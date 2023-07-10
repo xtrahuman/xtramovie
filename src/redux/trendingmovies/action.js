@@ -1,12 +1,10 @@
 import axios from "axios";
+import { authorization,url,imageUrl } from "../../utility";
 export const GETMOVIESTART = "movies/getall/start";
 export const GETALLMOVIESUCCESS = "movies/getall/success";
 export const GETALLMOVIEFAILURE = "movies/getall/failure";
 export const GETMOVIEDETAIL = "movies/getdetail";
-const url = "https://api.themoviedb.org";
 
-const authorization =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMjk4ZjU5NTJkOTVkNWY0NjIwODEyNTI5OTVhOGU4OSIsInN1YiI6IjY0OWEzNjM4ZDM1ZGVhMDEyYzE2YTQxYSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.VWiYH-cTeC1Iq7A-iEzg0p29ZacQqx2Bk2zlzoa0whs";
 
 const getMoviesStart = () => ({
   type: GETMOVIESTART,
@@ -15,12 +13,15 @@ const getMoviesStart = () => ({
 const getMoviesSuccess = (result) => {
   const page = result.page;
   let movies = result.results;
+  console.log(movies);
   movies = movies.map((result) => ({
     pageNo: page,
     id: result.id,
     name: result.name || result.title,
-    release_date: result.release_date,
-    image: `https://image.tmdb.org/t/p/original/${result.poster_path}`,
+    release_date: result.release_date || result.first_air_date,
+    media_type: result.media_type,
+    backgroundImg: `${imageUrl}/t/p/original${result.backdrop_path}`,
+    image: `${imageUrl}/t/p/original${result.poster_path}`,
     rating: result.vote_average,
   }));
   return {
@@ -35,10 +36,9 @@ const getMoviesFailure = (error) => ({
 });
 
 const getMovies = () => (dispatch) => {
-  console.log("starting request");
   dispatch(getMoviesStart());
   axios
-    .get(`${"https://api.themoviedb.org/3/trending/all/day?language=en-US"}`, {
+    .get(`${url}/3/trending/all/day?language=en-US`, {
       headers: {
         Authorization: `${authorization}`,
       },

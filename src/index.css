@@ -312,6 +312,10 @@ body {
   text-overflow: ellipsis;
 }
 
+.slick-arrow, .slick-next:before {
+  display: none;
+}
+
 /* input:focus {
 
 } */

@@ -6,17 +6,23 @@ import Container from "./container";
 import MovieGrid from "./moviegrid";
 import MovieSlider from "./movieslider";
 import { useNavigate } from "react-router-dom";
-import getMovies from "../redux/movies/action";
+import getMovies from "../redux/trendingmovies/action";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import getNowPlayingMovies from "../redux/nowplayingmovies/action";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const { loading, movies } = useSelector((state) => state.trendMovies);
+  const {nowPlayingloading, nowPlayingMovies} = useSelector((state) => state.nowPlaying)
   useEffect(() => {
     dispatch(getMovies());
-  }, [dispatch]);
+    dispatch(getNowPlayingMovies())
 
-  const { loading, movies } = useSelector((state) => state.trendMovies);
+  }, [dispatch]);
 
   const filterDropDowns = [
     {
@@ -90,35 +96,54 @@ const Home = () => {
 
   const [filter, setFilter] = useState(filterDropDowns);
   const [selectedButton, setSelectButton] = useState("popular");
-  if (loading) {
+
+  if (loading || nowPlayingloading) {
     return <p>loading</p>;
   }
+
+  const settings = {
+    // dots: true,
+    infinite: true,
+    speed: 3000,
+    slidesToShow: 1,
+    // slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 20000,
+  };
 
   // console.log(loading,movies)
 
   return (
     <div className="tes">
-      <HeroSection backgroundUrl="https://image.tmdb.org/t/p/original/vsjuHP9RQZJgYUvvSlO3mjJpXkq.jpg">
-        <Container className="py-[200px]">
-          <div className="z-[8] absolute top-0 w-[50%] bottom-0 pb-[230px] pt-[250px] hero">
-            <h1 className="text-[60px] font-bold font-['poppins']">
-              <span className="text-[#e4d804] text-[32px] h-span ">
-                Xtramovie
-              </span>{" "}
-              <br />
-              Unlimited <span className="text-[#e4d804]">Movie</span>, TVs
-              Shows, & More.
-            </h1>
-            <button
-              className="hover:text-[#e4d804] flex gap-x-2 items-center bg-[#0D1B2A] px-4 py-4 border-4 border-[#e4d804] rounded-xl "
-              onClick={() => navigate(`/movies/${1}/details`)}
-            >
-              <span>watch trailer</span>
-              <span className="play-btn"></span>
-            </button>
-          </div>
-        </Container>
-      </HeroSection>
+      <Slider {...settings} className="overflow-x-hidden">
+        { nowPlayingMovies.map((movie) => (
+          <HeroSection
+            backgroundUrl={movie?.backgroundImg}
+            key={movie.id}
+          >
+            <Container className="py-[200px]">
+              <div className="z-[8] absolute top-0 w-[50%] bottom-0 pb-[230px] pt-[250px] hero">
+                <h1 className="text-[60px] font-bold font-['poppins']">
+                  <span className="text-[#e4d804] text-[32px] h-span">
+                    Xtramovie
+                  </span>{" "}
+                  <br />
+                  Unlimited <span className="text-[#e4d804]">Movie</span>, TVs
+                  Shows, & More.
+                </h1>
+                <button
+                  className="hover:text-[#e4d804] flex gap-x-2 items-center bg-[#0D1B2A] px-4 py-4 border-4 border-[#e4d804] rounded-xl "
+                  onClick={() => navigate(`/movies/${movie.id}/details`)}
+                >
+                  <span>watch trailer</span>
+                  <span className="play-btn"></span>
+                </button>
+              </div>
+            </Container>
+          </HeroSection>
+          ))
+        }
+      </Slider>
       <Container>
         <div className="flex justify-between bg-[#0D1B2A] py-5 px-6 rounded-l-2xl rounded-r-2xl">
           <div className="flex gap-x-5">

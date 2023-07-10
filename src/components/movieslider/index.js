@@ -3,6 +3,7 @@ import { ScrollMenu, VisibilityContext } from "react-horizontal-scrolling-menu";
 import "react-horizontal-scrolling-menu/dist/styles.css";
 import { BsArrowRightCircle } from "react-icons/bs";
 import { BsArrowLeftCircle } from "react-icons/bs";
+import { getYear } from "../moviegrid";
 // import { useSwipe } from "../swipe";
 
 
@@ -96,7 +97,7 @@ function Card({ onClick, movie}) {
        </div>
        <div className="flex flex-col items-center px-4 my-3">
          <h4 className="crop-text w-[120px] text-center">{movie.name}</h4>
-         <span>2021</span>
+         <span>{getYear(movie.release_date)}</span>
        </div>
      </div>
   );

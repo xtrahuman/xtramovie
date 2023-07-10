@@ -1,6 +1,12 @@
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { PiPlayCircleThin } from "react-icons/pi";
 import { AiOutlineStar } from "react-icons/ai";
+
+export const getYear = (arr) => {
+  let year = arr.split('-')
+  return year[0]
+}
+
 const MovieGrid = ({ movies }) => {
   return (
     <section>
@@ -28,7 +34,7 @@ const MovieGrid = ({ movies }) => {
             </div>
             <div className="flex justify-between my-3">
               <h4 className="crop-text mr-4">{movie.name}</h4>
-              <span>2021</span>
+              <span>{getYear(movie.release_date)}</span>
             </div>
             <button className="bg-[#e4d804] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
               Buy

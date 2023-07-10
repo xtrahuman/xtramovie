@@ -9,7 +9,7 @@ import AllTvshows from "./components/alltvshow";
 import TvShowsDetails from "./components/tvShowsDetails";
 import MoviesDetails from "./components/movieDetails";
 import FooterSection from "./components/footer";
-import getMovies from "./redux/movies/action";
+import getMovies from "./redux/trendingmovies/action";
 
 function App() {
   const dispatch = useDispatch();
