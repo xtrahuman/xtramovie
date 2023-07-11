@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Icon from "../asset/planet.png";
+import Icon from "../asset/2.png";
 import Container from "./container";
 import useSticky from "./sticky";
 
@@ -65,8 +65,8 @@ const Navbar = () => {
         }  font-semibold items-center z-[11] justify-between py-5 px-10 uppercase absolute top-0 w-full left-0 nav-flex`}
       >
         <div className="nav-header a-center flex items-center gap-x-3 w-40%">
-          <img className="w-8 h-8" src={Icon} alt="logo" />
-          <h1 className="text-blue-600">xtraMovie</h1>
+          <img className="w-20 h-10" src={Icon} alt="logo" />
+          {/* <h1 className="text-blue-600">xtraMovie</h1> */}
         </div>
         <ul className="nav-ul flex justify-between w-[60%] a-center">
           {NavVariable.map((NavVar) => (

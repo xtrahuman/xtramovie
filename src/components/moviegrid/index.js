@@ -1,6 +1,9 @@
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { PiPlayCircleThin } from "react-icons/pi";
 import { AiOutlineStar } from "react-icons/ai";
+import { nextPage, prevPage } from "../../utility";
+import { useDispatch } from "react-redux";
+import getMovies from "../../redux/trendingmovies/action";
 
 export const getYear = (arr) => {
   let year = arr.split('-')
@@ -8,10 +11,15 @@ export const getYear = (arr) => {
 }
 
 const MovieGrid = ({ movies }) => {
+  const dispatch = useDispatch();
+
+  const handleOtherPage = (pageFunc, page_no, total_pages) => {
+    dispatch(getMovies(pageFunc(page_no, total_pages)))
+  }
   return (
     <section>
       <div className="w-full flex flex-wrap gap-x-3.5 gap-y-8 my-5">
-        {movies.map((movie) => (
+        {movies?.movies?.map((movie) => (
           <div key={movie.id} className="card">
             <div className="w-full relative rounded-2xl">
               <img
@@ -28,7 +36,7 @@ const MovieGrid = ({ movies }) => {
                 </div>
                 <div className="flex gap-x-1 p-4 rounded-lg bg-[#0D1B2A] justify-self-end items-center h-4 text-base text-[#e4d804]">
                   <AiOutlineStar />
-                  <span className="text-[#fff]">7.0</span>
+                  <span className="text-[#fff]">{movie.rating > 0 ? movie.rating.toFixed(1) : ''}</span>
                 </div>
               </div>
             </div>
@@ -42,9 +50,9 @@ const MovieGrid = ({ movies }) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-between">
-        <button className="p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A]">Prev</button>
-        <button className="p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A]">Next</button>
+      <div className={`flex ${movies.page_no === 1 ? 'justify-end' : 'justify-between' }`}>
+        <button className={`p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A] ${movies.page_no === 1 ? 'hidden' : 'flex' }`} onClick={()=> handleOtherPage(prevPage,movies?.total_pages,movies?.page_no )}>Prev</button>
+        <button className="p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A]" onClick={()=> handleOtherPage(nextPage,movies?.total_pages,movies?.page_no)}>Next</button>
       </div>
     </section>
   );

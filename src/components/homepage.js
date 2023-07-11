@@ -15,14 +15,19 @@ import getNowPlayingMovies from "../redux/nowplayingmovies/action";
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [newPageLoad, setNewPageLoad] = useState(true)
 
   const { loading, movies } = useSelector((state) => state.trendMovies);
   const {nowPlayingloading, nowPlayingMovies} = useSelector((state) => state.nowPlaying)
   useEffect(() => {
     dispatch(getMovies());
-    dispatch(getNowPlayingMovies())
+    dispatch(getNowPlayingMovies());
 
-  }, [dispatch]);
+  }, []);
+  // useEffect(() => {
+
+  // setNewPageLoad(false)
+  // }, []);
 
   const filterDropDowns = [
     {
@@ -97,9 +102,12 @@ const Home = () => {
   const [filter, setFilter] = useState(filterDropDowns);
   const [selectedButton, setSelectButton] = useState("popular");
 
-  if (loading || nowPlayingloading) {
+  if (nowPlayingloading){
     return <p>loading</p>;
   }
+  // if (newPageLoad) {
+  //   return <p>loading</p>;
+  // }
 
   const settings = {
     // dots: true,
@@ -111,12 +119,11 @@ const Home = () => {
     autoplaySpeed: 20000,
   };
 
-  // console.log(loading,movies)
 
   return (
     <div className="tes">
       <Slider {...settings} className="overflow-x-hidden">
-        { nowPlayingMovies.map((movie) => (
+        { nowPlayingMovies?.movies?.map((movie) => (
           <HeroSection
             backgroundUrl={movie?.backgroundImg}
             key={movie.id}

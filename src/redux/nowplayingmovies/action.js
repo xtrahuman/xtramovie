@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authorization,url,imageUrl } from "../../utility";
+import { authorization, url, imageUrl } from "../../utility";
 export const GETNOWPLAYINGMOVIESTART = "nowplayingmovies/getall/start";
 export const GETALLNOWPLAYINGMOVIESUCCESS = "nowplayingmovies/getall/success";
 export const GETALLNOWPLAYINGMOVIEFAILURE = "nowplayingmovies/getall/failure";
@@ -10,11 +10,14 @@ const getNowPlayingMoviesStart = () => ({
 });
 
 const getNowPlayingMoviesSuccess = (result) => {
-  const page = result.page;
-  let movies = result.results;
-  console.log(movies)
-  movies = movies.map((result) => ({
-    pageNo: page,
+  let moviesResult = {
+    page_no: result.page,
+    total_pages: result.total_pages,
+    movies: [],
+  };
+
+    result = result.results
+  let movies = result.map((result) => ({
     id: result.id,
     name: result.name || result.title,
     release_date: result.release_date || result.first_air_date,
@@ -23,10 +26,12 @@ const getNowPlayingMoviesSuccess = (result) => {
     image: `${imageUrl}/t/p/original${result.poster_path}`,
     rating: result.vote_average,
   }));
+
+  moviesResult.movies = movies
   return {
-  type: GETALLNOWPLAYINGMOVIESUCCESS,
-  payload: movies,
-  }
+    type: GETALLNOWPLAYINGMOVIESUCCESS,
+    payload: moviesResult,
+  };
 };
 
 const getNowPlayingMoviesFailure = (error) => ({

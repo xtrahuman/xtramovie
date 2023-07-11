@@ -4,3 +4,20 @@ export const authorization =
 export const url = "https://api.themoviedb.org";
 
 export const imageUrl = "https://image.tmdb.org"
+
+
+export const nextPage = (total_pages, page_no=1) => {
+    if (page_no < total_pages) {
+        page_no += 1
+    }
+    console.log(page_no)
+    return page_no
+}
+
+export const prevPage = (total_pages, page_no=1) => {
+    if (page_no > 1 && page_no <= total_pages) {
+        page_no -= 1
+    }
+    console.log(page_no)
+    return page_no
+}

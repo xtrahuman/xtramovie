@@ -1,7 +1,7 @@
 import { GETNOWPLAYINGMOVIESTART, GETALLNOWPLAYINGMOVIEFAILURE,GETALLNOWPLAYINGMOVIESUCCESS,GETNOWPLAYINGMOVIEDETAIL } from "./action"
 
 const INITIAL_STATE = {
-  nowPlayingMovies: [],
+  nowPlayingMovies: {},
   error: null,
   nowPlayingloading: false,
   message: null,

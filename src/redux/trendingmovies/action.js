@@ -11,11 +11,14 @@ const getMoviesStart = () => ({
 });
 
 const getMoviesSuccess = (result) => {
-  const page = result.page;
-  let movies = result.results;
-  console.log(movies);
-  movies = movies.map((result) => ({
-    pageNo: page,
+  let moviesResult = {
+    page_no: result.page,
+    total_pages: result.total_pages,
+    movies: []
+  }
+
+   result = result.results
+  let movies = result.map((result) => ({
     id: result.id,
     name: result.name || result.title,
     release_date: result.release_date || result.first_air_date,
@@ -24,9 +27,10 @@ const getMoviesSuccess = (result) => {
     image: `${imageUrl}/t/p/original${result.poster_path}`,
     rating: result.vote_average,
   }));
+  moviesResult.movies = movies
   return {
   type: GETALLMOVIESUCCESS,
-  payload: movies,
+  payload: moviesResult,
   }
 };
 
@@ -35,10 +39,10 @@ const getMoviesFailure = (error) => ({
   payload: error,
 });
 
-const getMovies = () => (dispatch) => {
+const getMovies = (page_no=1) => (dispatch) => {
   dispatch(getMoviesStart());
   axios
-    .get(`${url}/3/trending/all/day?language=en-US`, {
+    .get(`${url}/3/trending/all/day?language=en-US&page=${page_no}`, {
       headers: {
         Authorization: `${authorization}`,
       },

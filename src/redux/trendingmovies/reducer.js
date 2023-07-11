@@ -1,7 +1,7 @@
 import { GETALLMOVIEFAILURE,GETALLMOVIESUCCESS,GETMOVIEDETAIL,GETMOVIESTART } from "./action"
 
 const INITIAL_STATE = {
-  movies: [],
+  movies: {},
   error: null,
   loading: false,
   message: null,
