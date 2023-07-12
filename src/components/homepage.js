@@ -11,19 +11,23 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import getNowPlayingMovies from "../redux/nowplayingmovies/action";
+import getTvshows from "../redux/tvShowsOnly/action";
 
 const Home = () => {
+  useEffect(() => {
+    dispatch(getNowPlayingMovies());
+    dispatch(getMovies());
+    dispatch(getTvshows());
+  }, []);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [newPageLoad, setNewPageLoad] = useState(true)
 
   const { loading, movies } = useSelector((state) => state.trendMovies);
   const {nowPlayingloading, nowPlayingMovies} = useSelector((state) => state.nowPlaying)
-  useEffect(() => {
-    dispatch(getMovies());
-    dispatch(getNowPlayingMovies());
+  const {tvshowsLoading, tvshows} = useSelector((state) => state.tvshows)
 
-  }, []);
   // useEffect(() => {
 
   // setNewPageLoad(false)
@@ -197,10 +201,18 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <MovieGrid movies={movies} />
+        <MovieGrid movies={movies} getMovies={getMovies} />
       </Container>
       <div className="flex flex-col">
-        <h2 className="text-3xl mt-10 mb-5">Other movie suggestions</h2>
+        <h2 className="text-3xl mt-10 mb-5">Now Playing</h2>
+        <MovieSlider movies={nowPlayingMovies} />
+      </div>
+      <div className="flex flex-col">
+        <h2 className="text-3xl mt-5 mb-5">Popular TvShows</h2>
+        <MovieSlider movies={tvshows} />
+      </div>
+      <div className="flex flex-col">
+        <h2 className="text-3xl mt-5 mb-5">Other movie suggestions</h2>
         <MovieSlider movies={movies} />
       </div>
     </div>

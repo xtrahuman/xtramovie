@@ -3,14 +3,13 @@ import { PiPlayCircleThin } from "react-icons/pi";
 import { AiOutlineStar } from "react-icons/ai";
 import { nextPage, prevPage } from "../../utility";
 import { useDispatch } from "react-redux";
-import getMovies from "../../redux/trendingmovies/action";
 
 export const getYear = (arr) => {
   let year = arr.split('-')
   return year[0]
 }
 
-const MovieGrid = ({ movies }) => {
+const MovieGrid = ({ movies,getMovies }) => {
   const dispatch = useDispatch();
 
   const handleOtherPage = (pageFunc, page_no, total_pages) => {

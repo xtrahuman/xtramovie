@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import Icon from "../asset/2.png";
+import Icon from "../asset/XtraMovieLogo.png";
 import Container from "./container";
 import useSticky from "./sticky";
 
@@ -45,8 +45,12 @@ const Navbar = () => {
     mobileToggle.classList.toggle("toggle-menu");
     nav.classList.toggle("toggle");
     bodyfixed.classList.toggle("static");
-    console.log(nav.classList.contains("toggle"))
   };
+
+  const closeMobileMenu = () => {
+    mobileToggle.classList.toggle("toggle-menu");
+    nav.classList.toggle("toggle");
+  }
   return (
     <Container className="relative">
       <div
@@ -62,10 +66,10 @@ const Navbar = () => {
         ref={stickyRef}
         className={`flex ${
           sticky ? "sticky" : ""
-        }  font-semibold items-center z-[11] justify-between py-5 px-10 uppercase absolute top-0 w-full left-0 nav-flex`}
+        }  font-semibold items-center z-[11] justify-between py-2 px-10 uppercase absolute top-0 w-full left-0 nav-flex`}
       >
         <div className="nav-header a-center flex items-center gap-x-3 w-40%">
-          <img className="w-20 h-10" src={Icon} alt="logo" />
+          <img className="w-[60px] h-[auto]" src={Icon} alt="logo" />
           {/* <h1 className="text-blue-600">xtraMovie</h1> */}
         </div>
         <ul className="nav-ul flex justify-between w-[60%] a-center">
@@ -76,7 +80,7 @@ const Navbar = () => {
                 className={(navData) =>
                   navData.isActive ? "text-[#e4d804]" : ""
                 }
-                onClick={mobilemenu}
+                onClick={closeMobileMenu}
               >
                 {NavVar.name}
               </NavLink>

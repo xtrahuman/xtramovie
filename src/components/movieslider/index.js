@@ -9,7 +9,7 @@ import { getYear } from "../moviegrid";
 
 function MovieSlider({movies}) {
   let moviesOutput = movies?.movies
-  const [items, setItems] = useState(moviesOutput);
+  // const [items, setItems] = useState(moviesOutput);
   const [selected, setSelected] = useState([]);
   const [position, setPosition] = useState(0);
 //   const { scrollPrev } = useContext(VisibilityContext);
@@ -31,7 +31,7 @@ function MovieSlider({movies}) {
 
   return (
     <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow} >
-      {items?.map(( movie ) => (
+      {moviesOutput?.map(( movie ) => (
         <Card
           itemId={movie.id} // NOTE: itemId is required for track items
           movie = {movie}
