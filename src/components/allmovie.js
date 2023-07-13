@@ -99,9 +99,9 @@ const AllMovies = () => {
               All<span className="text-[#e4d804] ml-2">Movies</span>
             </h1>
             <div className="text-center flex gap-x-3 justify-center text-[22px]">
-            <span className="text-[#e4d804]">Popular</span>
-            <span>|</span>
-            <span>Trending</span>
+              <span className="text-[#e4d804]">Popular</span>
+              <span>|</span>
+              <span>Trending</span>
             </div>
           </div>
         </Container>
@@ -152,10 +152,14 @@ const AllMovies = () => {
             ))}
           </div>
         </div>
-        <MovieGrid movies={onlyMovies} getMovies={getOnlyMovies} />
+        <MovieGrid
+          movies={onlyMovies}
+          mediaType="movie"
+          getMovies={getOnlyMovies}
+        />
       </Container>
       <div className="flex flex-col">
-        <h2 className="text-3xl mt-10 mb-5">Other movie suggestions</h2>
+        <h2 className="text-3xl px-8 mt-10 mb-5">Other movie suggestions</h2>
         <MovieSlider movies={onlyMovies} />
       </div>
     </div>

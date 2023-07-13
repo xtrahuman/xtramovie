@@ -1,12 +1,36 @@
 import axios from "axios";
 import { authorization, url, imageUrl } from "../../utility";
 export const GETTVSHOWSTART = "tvshows/getall/start";
+export const GETTVSHOWDETAILSTART = "tvshows/detail/start";
 export const GETALLTVSHOWSUCCESS = "tvshows/getall/success";
+export const GETTVSHOWDETAILSUCCESS = "tvshows/detail/success";
 export const GETALLTVSHOWFAILURE = "tvshows/getall/failure";
+export const GETTVSHOWDETAILFAILURE = "tvshows/detail/failure";
 
 const getTvshowStart = () => ({
   type: GETTVSHOWSTART,
 });
+const getTvshowDetailStart = () => ({
+  type: GETTVSHOWDETAILSTART,
+});
+
+const getTvshowDetailSuccess = (result) => {
+  let movies = {
+    id: result.id,
+    name: result.name || result.title,
+    release_date: result.release_date || result.first_air_date,
+    backgroundImg: `${imageUrl}/t/p/original${result.backdrop_path}`,
+    image: `${imageUrl}/t/p/original${result.poster_path}`,
+    genre: result.genre,
+    rating: result.vote_average,
+    summary: result.overview,
+  };
+
+  return {
+    type: GETTVSHOWDETAILSUCCESS,
+    payload: movies,
+  };
+};
 
 const getTvshowSuccess = (result) => {
   let moviesResult = {
@@ -38,6 +62,11 @@ const getTvshowFailure = (error) => ({
   payload: error,
 });
 
+const getTvshowDetailFailure = (error) => ({
+  type: GETTVSHOWDETAILFAILURE,
+  payload: error,
+});
+
 const getTvshows = (page_no) => (dispatch) => {
   dispatch(getTvshowStart());
   axios
@@ -51,6 +80,22 @@ const getTvshows = (page_no) => (dispatch) => {
     })
     .catch((err) => {
       dispatch(getTvshowFailure(err.response?.data?.error));
+    });
+};
+
+export const getTvshowDetails = (showId) => (dispatch) => {
+  dispatch(getTvshowDetailStart())
+  axios
+    .get(`${url}/3/tv/${showId}`, {
+      headers: {
+        Authorization: `${authorization}`,
+      },
+    })
+    .then((response) => {
+      dispatch(getTvshowDetailSuccess(response.data));
+    })
+    .catch((err) => {
+      dispatch(getTvshowDetailFailure(err.response?.data?.error));
     });
 };
 

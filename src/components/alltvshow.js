@@ -7,10 +7,7 @@ import MovieGrid from "./moviegrid";
 import { Menu } from "@headlessui/react";
 import getTvshows from "../redux/tvShowsOnly/action";
 const AllTvshows = () => {
-  
-  const { onlyMoviesLoading, tvshows} = useSelector(
-    (state) => state.tvshows
-  );
+  const { onlyMoviesLoading, tvshows } = useSelector((state) => state.tvshows);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTvshows());
@@ -99,9 +96,9 @@ const AllTvshows = () => {
               TV<span className="text-[#e4d804] ml-2">Shows</span>
             </h1>
             <div className="text-center flex gap-x-3 justify-center text-[22px]">
-            <span className="text-[#e4d804]">Popular</span>
-            <span>|</span>
-            <span>Trending</span>
+              <span className="text-[#e4d804]">Popular</span>
+              <span>|</span>
+              <span>Trending</span>
             </div>
           </div>
         </Container>
@@ -152,16 +149,14 @@ const AllTvshows = () => {
             ))}
           </div>
         </div>
-        <MovieGrid movies={tvshows} getMovies={getTvshows} />
+        <MovieGrid movies={tvshows} mediaType="tv" getMovies={getTvshows} />
       </Container>
       <div className="flex flex-col">
-        <h2 className="text-3xl mt-10 mb-5">Other movie suggestions</h2>
+        <h2 className="text-3xl px-8 mt-10 mb-5">Other movie suggestions</h2>
         <MovieSlider movies={tvshows} />
       </div>
     </div>
   );
-
 };
-  
-  export default AllTvshows;
-  
+
+export default AllTvshows;

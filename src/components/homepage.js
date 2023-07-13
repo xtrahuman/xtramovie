@@ -12,21 +12,24 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import getNowPlayingMovies from "../redux/nowplayingmovies/action";
 import getTvshows from "../redux/tvShowsOnly/action";
+import { getMoviesDetails } from "../redux/moviesonly/action";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getNowPlayingMovies());
     dispatch(getMovies());
     dispatch(getTvshows());
   }, []);
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [newPageLoad, setNewPageLoad] = useState(true)
+  const [newPageLoad, setNewPageLoad] = useState(true);
 
   const { loading, movies } = useSelector((state) => state.trendMovies);
-  const {nowPlayingloading, nowPlayingMovies} = useSelector((state) => state.nowPlaying)
-  const {tvshowsLoading, tvshows} = useSelector((state) => state.tvshows)
+  const { nowPlayingloading, nowPlayingMovies } = useSelector(
+    (state) => state.nowPlaying
+  );
+  const { tvshowsLoading, tvshows } = useSelector((state) => state.tvshows);
 
   // useEffect(() => {
 
@@ -106,7 +109,7 @@ const Home = () => {
   const [filter, setFilter] = useState(filterDropDowns);
   const [selectedButton, setSelectButton] = useState("popular");
 
-  if (nowPlayingloading){
+  if (nowPlayingloading) {
     return <p>loading</p>;
   }
   // if (newPageLoad) {
@@ -123,15 +126,16 @@ const Home = () => {
     autoplaySpeed: 20000,
   };
 
+  const handleMovieDetails = (movieId) => {
+    dispatch(getMoviesDetails(movieId));
+    navigate(`/movies/${movieId}/details/movie`);
+  };
 
   return (
     <div className="tes">
       <Slider {...settings} className="overflow-x-hidden">
-        { nowPlayingMovies?.movies?.map((movie) => (
-          <HeroSection
-            backgroundUrl={movie?.backgroundImg}
-            key={movie.id}
-          >
+        {nowPlayingMovies?.movies?.map((movie) => (
+          <HeroSection backgroundUrl={movie?.backgroundImg} key={movie.id}>
             <Container className="py-[200px]">
               <div className="z-[8] absolute top-0 w-[50%] bottom-0 pb-[230px] pt-[250px] hero">
                 <h1 className="text-[60px] font-bold font-['poppins']">
@@ -144,7 +148,7 @@ const Home = () => {
                 </h1>
                 <button
                   className="hover:text-[#e4d804] flex gap-x-2 items-center bg-[#0D1B2A] px-4 py-4 border-4 border-[#e4d804] rounded-xl "
-                  onClick={() => navigate(`/movies/${movie.id}/details`)}
+                  onClick={() => handleMovieDetails(movie.id)}
                 >
                   <span>watch trailer</span>
                   <span className="play-btn"></span>
@@ -152,8 +156,7 @@ const Home = () => {
               </div>
             </Container>
           </HeroSection>
-          ))
-        }
+        ))}
       </Slider>
       <Container>
         <div className="flex justify-between bg-[#0D1B2A] py-5 px-6 rounded-l-2xl rounded-r-2xl">
@@ -201,18 +204,18 @@ const Home = () => {
             ))}
           </div>
         </div>
-        <MovieGrid movies={movies} getMovies={getMovies} />
+        <MovieGrid movies={movies} mediaType="tv" getMovies={getMovies} />
       </Container>
       <div className="flex flex-col">
-        <h2 className="text-3xl mt-10 mb-5">Now Playing</h2>
+        <h2 className="text-3xl px-8 mt-10 mb-5">Now Playing</h2>
         <MovieSlider movies={nowPlayingMovies} />
       </div>
       <div className="flex flex-col">
-        <h2 className="text-3xl mt-5 mb-5">Popular TvShows</h2>
+        <h2 className="text-3xl px-8 mt-5 mb-5">Popular TvShows</h2>
         <MovieSlider movies={tvshows} />
       </div>
       <div className="flex flex-col">
-        <h2 className="text-3xl mt-5 mb-5">Other movie suggestions</h2>
+        <h2 className="text-3xl px-8 mt-5 mb-5">Other movie suggestions</h2>
         <MovieSlider movies={movies} />
       </div>
     </div>

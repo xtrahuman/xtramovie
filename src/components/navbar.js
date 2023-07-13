@@ -24,14 +24,14 @@ const NavVariable = [
   },
   {
     id: 4,
-    name: "contact",
-    link: "/contact",
+    name: "about",
+    link: "/about",
   },
-  {
-    id: 5,
-    name: "signIn",
-    link: "/signIn",
-  },
+  // {
+  //   id: 5,
+  //   name: "signIn",
+  //   link: "/signIn",
+  // },
 ];
 
 const Navbar = () => {
@@ -48,8 +48,11 @@ const Navbar = () => {
   };
 
   const closeMobileMenu = () => {
-    mobileToggle.classList.toggle("toggle-menu");
-    nav.classList.toggle("toggle");
+    if (nav.classList.contains('toggle')){
+      mobileToggle.classList.toggle("toggle-menu");
+      nav.classList.toggle("toggle");
+    }
+
   }
   return (
     <Container className="relative">
@@ -69,8 +72,7 @@ const Navbar = () => {
         }  font-semibold items-center z-[11] justify-between py-2 px-10 uppercase absolute top-0 w-full left-0 nav-flex`}
       >
         <div className="nav-header a-center flex items-center gap-x-3 w-40%">
-          <img className="w-[60px] h-[auto]" src={Icon} alt="logo" />
-          {/* <h1 className="text-blue-600">xtraMovie</h1> */}
+          <NavLink to="/"><img className="w-[60px] h-[auto]" src={Icon} alt="logo" /></NavLink>
         </div>
         <ul className="nav-ul flex justify-between w-[60%] a-center">
           {NavVariable.map((NavVar) => (

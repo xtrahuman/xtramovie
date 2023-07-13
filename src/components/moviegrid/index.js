@@ -3,18 +3,31 @@ import { PiPlayCircleThin } from "react-icons/pi";
 import { AiOutlineStar } from "react-icons/ai";
 import { nextPage, prevPage } from "../../utility";
 import { useDispatch } from "react-redux";
+import { getMoviesDetails } from "../../redux/moviesonly/action";
+import { useNavigate } from "react-router-dom";
 
 export const getYear = (arr) => {
-  let year = arr.split('-')
-  return year[0]
-}
+  let year = arr.split("-");
+  return year[0];
+};
 
-const MovieGrid = ({ movies,getMovies }) => {
+const MovieGrid = ({ movies, getMovies, mediaType }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleOtherPage = (pageFunc, page_no, total_pages) => {
-    dispatch(getMovies(pageFunc(page_no, total_pages)))
-  }
+    dispatch(getMovies(pageFunc(page_no, total_pages)));
+  };
+
+  const handleMovieDetails = (mediaType, movieId) => {
+    dispatch(getMoviesDetails(movieId));
+    if (mediaType === "movie") {
+      navigate(`/movies/${movieId}/details/${mediaType}`);
+    } else if (mediaType === "tv") {
+      navigate(`/tvshow/${movieId}/details/${mediaType}`);
+    }
+  };
+
   return (
     <section>
       <div className="w-full flex flex-wrap gap-x-3.5 gap-y-8 my-5">
@@ -30,12 +43,19 @@ const MovieGrid = ({ movies,getMovies }) => {
                 <div className="h-4 p-4 px-1 w-10 flex items-center justify-center rounded-lg bg-[#0D1B2A]">
                   <BsFillBookmarkHeartFill className="text-[#e4d804] text-base" />
                 </div>
-                <div className="place-self-center text-8xl font-thin">
+                <div
+                  onClick={() =>
+                    handleMovieDetails(movie.media_type || mediaType, movie.id)
+                  }
+                  className="place-self-center text-8xl font-thin"
+                >
                   <PiPlayCircleThin />
                 </div>
                 <div className="flex gap-x-1 p-4 rounded-lg bg-[#0D1B2A] justify-self-end items-center h-4 text-base text-[#e4d804]">
                   <AiOutlineStar />
-                  <span className="text-[#fff]">{movie.rating > 0 ? movie.rating.toFixed(1) : ''}</span>
+                  <span className="text-[#fff]">
+                    {movie.rating > 0 ? movie.rating.toFixed(1) : ""}
+                  </span>
                 </div>
               </div>
             </div>
@@ -49,9 +69,29 @@ const MovieGrid = ({ movies,getMovies }) => {
           </div>
         ))}
       </div>
-      <div className={`flex ${movies.page_no === 1 ? 'justify-end' : 'justify-between' }`}>
-        <button className={`p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A] ${movies.page_no === 1 ? 'hidden' : 'flex' }`} onClick={()=> handleOtherPage(prevPage,movies?.total_pages,movies?.page_no )}>Prev</button>
-        <button className="p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A]" onClick={()=> handleOtherPage(nextPage,movies?.total_pages,movies?.page_no)}>Next</button>
+      <div
+        className={`flex ${
+          movies.page_no === 1 ? "justify-end" : "justify-between"
+        }`}
+      >
+        <button
+          className={`p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A] ${
+            movies.page_no === 1 ? "hidden" : "flex"
+          }`}
+          onClick={() =>
+            handleOtherPage(prevPage, movies?.total_pages, movies?.page_no)
+          }
+        >
+          Prev
+        </button>
+        <button
+          className="p-4 rounded-lg text-[#fff] hover:text-[#e4d804] bg-[#0D1B2A]"
+          onClick={() =>
+            handleOtherPage(nextPage, movies?.total_pages, movies?.page_no)
+          }
+        >
+          Next
+        </button>
       </div>
     </section>
   );
