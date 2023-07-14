@@ -1,6 +1,6 @@
 
 import { CgProfile } from "react-icons/cg";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const Comment = ({comments}) => {
 const [userComment, setUserComment] = useState("add comment");

@@ -47,10 +47,10 @@ const FooterSection = () => {
             <div className="flex flex-col items-center w-full mt-12 mb-5">
                 <h5 className="text-lg">XtraMovie</h5>
                 <div className="flex gap-x-6 mt-2">
-                    <a href="#"><img className="w-7 h-7" src={twitterIcon} alt="twiterlogo" /></a>
-                    <a href="#"><img className="w-7 h-7" src={mediumIcon} alt="mediumlogo" /></a>
-                    <a href="#"><img className="w-7 h-7" src={githubIcon} alt="githublogo" /></a>
-                    <a href="#"><img className="w-7 h-7" src={linkedinIcon} alt="linkedinlogo" /></a>
+                    <a href="https://www.linkedin.com/in/tochukwuokpara/"><img className="w-7 h-7" src={twitterIcon} alt="twiterlogo" /></a>
+                    <a href="https://github.com/xtrahuman"><img className="w-7 h-7" src={mediumIcon} alt="mediumlogo" /></a>
+                    <a href="https://github.com/xtrahuman"><img className="w-7 h-7" src={githubIcon} alt="githublogo" /></a>
+                    <a href="https://www.linkedin.com/in/tochukwuokpara/"><img className="w-7 h-7" src={linkedinIcon} alt="linkedinlogo" /></a>
                 </div>
             </div>
         </footer>
