@@ -9,6 +9,7 @@ import getOnlyMovies from "../redux/moviesonly/action";
 
 
 const AllMovies = () => {
+  // eslint-disable-next-line no-unused-vars
   const { onlyMoviesLoading, onlyMovies } = useSelector(
     (state) => state.onlyMovies
   );
@@ -17,6 +18,7 @@ const AllMovies = () => {
   useEffect(() => {
     dispatch(getOnlyMovies());
     // dispatch(getNowPlayingMovies());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const filterDropDowns = [

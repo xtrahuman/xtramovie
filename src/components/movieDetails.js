@@ -17,6 +17,7 @@ const MoviesDetails = () => {
   useEffect(() => {
     dispatch(getMoviesDetails(id));
     dispatch(getVideoKey(mediaType, id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const comments = [

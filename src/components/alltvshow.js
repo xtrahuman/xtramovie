@@ -12,6 +12,7 @@ const AllTvshows = () => {
   useEffect(() => {
     dispatch(getTvshows());
     // dispatch(getNowPlayingMovies());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tvshows]);
 
   const filterDropDowns = [
