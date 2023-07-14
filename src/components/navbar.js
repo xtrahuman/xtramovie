@@ -50,6 +50,7 @@ const Navbar = () => {
     if (nav.classList.contains("toggle")) {
       mobileToggle.classList.toggle("toggle-menu");
       nav.classList.toggle("toggle");
+      bodyfixed.classList.toggle("static");
     }
   };
   return (
