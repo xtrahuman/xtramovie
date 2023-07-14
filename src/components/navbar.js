@@ -40,7 +40,6 @@ const Navbar = () => {
   const bodyfixed = document.querySelector("body");
   const { sticky, stickyRef } = useSticky();
 
-
   const mobilemenu = () => {
     mobileToggle.classList.toggle("toggle-menu");
     nav.classList.toggle("toggle");
@@ -48,12 +47,11 @@ const Navbar = () => {
   };
 
   const closeMobileMenu = () => {
-    if (nav.classList.contains('toggle')){
+    if (nav.classList.contains("toggle")) {
       mobileToggle.classList.toggle("toggle-menu");
       nav.classList.toggle("toggle");
     }
-
-  }
+  };
   return (
     <Container className="relative">
       <div
@@ -72,7 +70,9 @@ const Navbar = () => {
         }  font-semibold items-center z-[11] justify-between py-2 px-10 uppercase absolute top-0 w-full left-0 nav-flex`}
       >
         <div className="nav-header a-center flex items-center gap-x-3 w-40%">
-          <NavLink to="/"><img className="w-[60px] h-[auto]" src={Icon} alt="logo" /></NavLink>
+          <NavLink onClick={closeMobileMenu} to="/">
+            <img className="w-[60px] h-[auto]" src={Icon} alt="logo" />
+          </NavLink>
         </div>
         <ul className="nav-ul flex justify-between w-[60%] a-center">
           {NavVariable.map((NavVar) => (

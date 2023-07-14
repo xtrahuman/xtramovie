@@ -18,3 +18,8 @@ export const prevPage = (total_pages, page_no = 1) => {
   }
   return page_no;
 };
+
+
+export const scrollToTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };

@@ -7,10 +7,12 @@ import MovieGrid from "./moviegrid";
 import { Menu } from "@headlessui/react";
 import getOnlyMovies from "../redux/moviesonly/action";
 
+
 const AllMovies = () => {
   const { onlyMoviesLoading, onlyMovies } = useSelector(
     (state) => state.onlyMovies
   );
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getOnlyMovies());
@@ -91,10 +93,10 @@ const AllMovies = () => {
   const [selectedButton, setSelectButton] = useState("popular");
 
   return (
-    <div className="">
-      <HeroSection backgroundUrl="https://image.tmdb.org/t/p/original/zqkmTXzjkAgXmEWLRsY4UpTWCeo.jpg">
+    <div className="tes">
+      <HeroSection backgroundUrl="https://image.tmdb.org/t/p/original/4HodYYKEIsGOdinkGi2Ucz6X9i0.jpg">
         <Container className="py-[200px]">
-          <div className="z-[8] absolute top-0 w-[50%] translate-x-[-50%] left-[50%] bottom-0 pb-[230px] pt-[280px] hero">
+          <div className="z-[8] absolute top-0 w-[50%] translate-x-[-50%] left-[50%] bottom-0 pb-[230px] pt-[280px] hero-tv">
             <h1 className="text-[60px] text-center font-bold font-['poppins']">
               All<span className="text-[#e4d804] ml-2">Movies</span>
             </h1>
@@ -160,7 +162,8 @@ const AllMovies = () => {
       </Container>
       <div className="flex flex-col">
         <h2 className="text-3xl px-8 mt-10 mb-5">Other movie suggestions</h2>
-        <MovieSlider movies={onlyMovies} />
+        <MovieSlider movies={onlyMovies} 
+        mediaType="movie"/>
       </div>
     </div>
   );

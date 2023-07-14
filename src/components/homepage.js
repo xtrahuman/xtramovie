@@ -13,6 +13,7 @@ import "slick-carousel/slick/slick-theme.css";
 import getNowPlayingMovies from "../redux/nowplayingmovies/action";
 import getTvshows from "../redux/tvShowsOnly/action";
 import { getMoviesDetails } from "../redux/moviesonly/action";
+import { scrollToTop } from "../utility";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -129,6 +130,7 @@ const Home = () => {
   const handleMovieDetails = (movieId) => {
     dispatch(getMoviesDetails(movieId));
     navigate(`/movies/${movieId}/details/movie`);
+    scrollToTop();
   };
 
   return (
@@ -208,15 +210,15 @@ const Home = () => {
       </Container>
       <div className="flex flex-col">
         <h2 className="text-3xl px-8 mt-10 mb-5">Now Playing</h2>
-        <MovieSlider movies={nowPlayingMovies} />
+        <MovieSlider movies={nowPlayingMovies} mediaType="movie" />
       </div>
       <div className="flex flex-col">
         <h2 className="text-3xl px-8 mt-5 mb-5">Popular TvShows</h2>
-        <MovieSlider movies={tvshows} />
+        <MovieSlider movies={tvshows} mediaType="tv" />
       </div>
       <div className="flex flex-col">
         <h2 className="text-3xl px-8 mt-5 mb-5">Other movie suggestions</h2>
-        <MovieSlider movies={movies} />
+        <MovieSlider movies={movies} mediaType="movie" />
       </div>
     </div>
   );

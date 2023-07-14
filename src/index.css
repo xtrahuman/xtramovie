@@ -50,15 +50,25 @@ body {
 
 }
 
-@media only screen and (max-width: 680px) {
+@media only screen and (max-width: 679px) {
   .hero {
-    padding-top: 150px;
+    padding-top: 200px;
+    padding-bottom: 100px;
+    width: 100%
+  }
+
+  .hero-tv {
+    padding-top: 300px;
     padding-bottom: 100px;
     width: 100%
   }
 
   .hero h1 {
-    font-size: 50px;
+    font-size: 44px;
+  }
+
+  .tes h2 {
+    font-size: 26px;
   }
 
   .hero h1 > .h-span {

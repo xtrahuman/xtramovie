@@ -5,6 +5,7 @@ import { nextPage, prevPage } from "../../utility";
 import { useDispatch } from "react-redux";
 import { getMoviesDetails } from "../../redux/moviesonly/action";
 import { useNavigate } from "react-router-dom";
+import { scrollToTop } from "../../utility";
 
 export const getYear = (arr) => {
   let year = arr.split("-");
@@ -26,6 +27,7 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
     } else if (mediaType === "tv") {
       navigate(`/tvshow/${movieId}/details/${mediaType}`);
     }
+    scrollToTop();
   };
 
   return (
@@ -39,7 +41,12 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
                 src={movie.image}
                 alt="logo"
               />
-              <div className="movie-overlay cursor-pointer px-4 py-3 grid grid-cols-3 justify-between absolute top-0 bottom-0 left-0 right-0 rounded-2xl">
+              <div
+                onClick={() =>
+                  handleMovieDetails(movie.media_type || mediaType, movie.id)
+                }
+                className="movie-overlay cursor-pointer px-4 py-3 grid grid-cols-3 justify-between absolute top-0 bottom-0 left-0 right-0 rounded-2xl"
+              >
                 <div className="h-4 p-4 px-1 w-10 flex items-center justify-center rounded-lg bg-[#0D1B2A]">
                   <BsFillBookmarkHeartFill className="text-[#e4d804] text-base" />
                 </div>
