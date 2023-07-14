@@ -3,26 +3,20 @@ import { AiOutlineStar } from "react-icons/ai";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { CgProfile } from "react-icons/cg";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getVideoKey } from "../redux/moviesonly/action";
 import { getMoviesDetails } from "../redux/moviesonly/action";
 import Comment from "./comments/comment";
 
 const MoviesDetails = () => {
   const dispatch = useDispatch();
-  const { onlyMoviesLoading, key, onlyMovies } = useSelector(
-    (state) => state.onlyMovies
-  );
-
-  const check = useSelector((state) => state.onlyMovies);
+  const { key, onlyMovies } = useSelector((state) => state.onlyMovies);
 
   const { mediaType, id } = useParams();
 
   useEffect(() => {
     dispatch(getMoviesDetails(id));
     dispatch(getVideoKey(mediaType, id));
-  
   }, []);
 
   const comments = [
@@ -107,7 +101,7 @@ const MoviesDetails = () => {
             </div>
           </div>
         </div>
-       <Comment comments={comments}/>
+        <Comment comments={comments} />
       </Container>
     </div>
   );

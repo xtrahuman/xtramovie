@@ -13,7 +13,7 @@ import { getMoviesDetails } from "../../redux/moviesonly/action";
 function MovieSlider({ movies,mediaType }) {
   let moviesOutput = movies?.movies;
   const [selected, setSelected] = useState([]);
-  const [position, setPosition] = useState(0);
+  // const [position, setPosition] = useState(0);
 
   const isItemSelected = (id) => !!selected.find((el) => el === id);
 

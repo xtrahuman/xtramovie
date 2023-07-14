@@ -3,22 +3,20 @@ import { AiOutlineStar } from "react-icons/ai";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { getVideoKey } from "../redux/moviesonly/action";
 import { getTvshowDetails } from "../redux/tvShowsOnly/action";
 import Comment from "./comments/comment";
 
 const TvShowsDetails = () => {
   const dispatch = useDispatch();
-  const { onlyMoviesLoading, key } = useSelector(
+  const { key } = useSelector(
     (state) => state.tvshows
   );
 
-  const { tvshowsLoading,tvshows } = useSelector(
+  const { tvshows } = useSelector(
     (state) => state.tvshows
   );
-
-  const check = useSelector((state) => state.tvshows);
 
   const { mediaType, id } = useParams();
 
@@ -26,7 +24,7 @@ const TvShowsDetails = () => {
     dispatch(getTvshowDetails(id));
     dispatch(getVideoKey(mediaType, id));
   
-  }, []);
+  }, [id]);
 
   const comments = [
     {

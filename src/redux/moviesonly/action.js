@@ -15,7 +15,7 @@ const getOnlyMoviesStart = () => ({
 const getMovieVideoKey = (data) => {
   const result = data.results?.filter(
     (result) => result.official === true 
-    || result.name == "Official Trailer"
+    || result.name === "Official Trailer"
   );
   const key = result[1]?.key || result[0]?.key;
   return {

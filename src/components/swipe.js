@@ -28,7 +28,6 @@
 //     const distance = touchStart - touchEnd;
 //     const isSwipe = Math.abs(distance) > minSwipeDistance;
 //     const isLeftSwipe = distance < minSwipeDistance;
-//     console.log({ isSwipe, isLeftSwipe });
 //     if (isSwipe) {
 //       if (isLeftSwipe) {
 //         scrollPrev();

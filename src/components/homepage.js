@@ -24,18 +24,11 @@ const Home = () => {
     dispatch(getTvshows());
   }, []);
 
-  const [newPageLoad, setNewPageLoad] = useState(true);
-
-  const { loading, movies } = useSelector((state) => state.trendMovies);
+  const { movies } = useSelector((state) => state.trendMovies);
   const { nowPlayingloading, nowPlayingMovies } = useSelector(
     (state) => state.nowPlaying
   );
-  const { tvshowsLoading, tvshows } = useSelector((state) => state.tvshows);
-
-  // useEffect(() => {
-
-  // setNewPageLoad(false)
-  // }, []);
+  const { tvshows } = useSelector((state) => state.tvshows);
 
   const filterDropDowns = [
     {

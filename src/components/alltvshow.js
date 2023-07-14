@@ -7,12 +7,12 @@ import MovieGrid from "./moviegrid";
 import { Menu } from "@headlessui/react";
 import getTvshows from "../redux/tvShowsOnly/action";
 const AllTvshows = () => {
-  const { onlyMoviesLoading, tvshows } = useSelector((state) => state.tvshows);
+  const { tvshows } = useSelector((state) => state.tvshows);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getTvshows());
     // dispatch(getNowPlayingMovies());
-  }, []);
+  }, [tvshows]);
 
   const filterDropDowns = [
     {
