@@ -4,8 +4,6 @@ import Icon from "../asset/XtraMovieLogo.png";
 import Container from "./container";
 import useSticky from "./sticky";
 
-// mobileToggle.addEventListener('click', mobilemenu);
-
 const NavVariable = [
   {
     id: 1,
