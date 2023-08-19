@@ -25,6 +25,7 @@ const getNowPlayingMoviesSuccess = (result) => {
     backgroundImg: `${imageUrl}/t/p/original${result.backdrop_path}`,
     image: `${imageUrl}/t/p/original${result.poster_path}`,
     rating: result.vote_average,
+    summary: result.overview,
   }));
 
   moviesResult.movies = movies

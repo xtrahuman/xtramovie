@@ -40,6 +40,7 @@ const getOnlyMoviesSuccess = (result) => {
     backgroundImg: `${imageUrl}/t/p/original${result.backdrop_path}`,
     image: `${imageUrl}/t/p/original${result.poster_path}`,
     rating: result.vote_average,
+    summary: result.overview,
   }));
 
   moviesResult.movies = movies;
@@ -60,6 +61,8 @@ const getMovieDetailSuccess = (result) => {
     rating: result.vote_average,
     summary: result.overview,
   };
+
+  console.log('image.tmdb.org/t/p/original/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg')
 
   return {
     type: GETMOVIEDETAILSUCCESS,
