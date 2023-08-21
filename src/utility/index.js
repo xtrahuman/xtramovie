@@ -4,7 +4,8 @@ export const authorization =
 export const userprofile = JSON.parse(localStorage.getItem("user"));
 export const url = "https://api.themoviedb.org";
 
-export const localBackendUrl = "http://127.0.0.1:3003";
+// export const localBackendUrl = "http://127.0.0.1:3003";
+export const localBackendUrl = "https://xtramovie-backend-cmp7246.onrender.com";
 
 export const imageUrl = "https://image.tmdb.org";
 
