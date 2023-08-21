@@ -7,6 +7,7 @@ import onlyMovieReducer from "./moviesonly/reducer";
 import tvshowReducer from "./tvShowsOnly/reducer";
 import userReducer from "./authentication/reducer";
 import watchlistReducer from "./watchlist/reducer";
+import ratingReducer from "./ratings/reducer";
 
 const reducer = combineReducers({
   trendMovies: movieReducer,
@@ -15,6 +16,7 @@ const reducer = combineReducers({
   tvshows: tvshowReducer,
   userDetails: userReducer,
   watchlist: watchlistReducer,
+  rateInfo: ratingReducer,
 });
 
 const store = createStore(reducer, applyMiddleware(logger, thunk));

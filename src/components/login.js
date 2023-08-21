@@ -52,6 +52,12 @@ function Login({ page }) {
           signup
         </NavLink>
       </div>
+
+      <div className="text-sm text-center relative top-[120px]">
+         <p>please Signup or use the details below to test login</p>
+         <p>email: tboy701@gmail.com</p>
+         <p>password: 123456789</p>
+        </div>
     </div>
   );
 }

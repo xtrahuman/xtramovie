@@ -13,6 +13,8 @@ import Login from "./components/login";
 import SignUp from "./components/signup";
 import Logout from "./components/logout";
 import WatchList from "./components/watchlist";
+import '@smastrom/react-rating/style.css'
+import UserProfile from "./components/userprofile";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +42,7 @@ function App() {
           <Route path="/login" element={<Login page='/' />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/logout"element={<Logout />} />
+          <Route path="/userprofile"element={<UserProfile />} />
           <Route path="/watchlists"element={<WatchList />} />
           <Route path="/tvshow/:id/details/:mediaType" element={<TvShowsDetails/>} />
           <Route path="/movies/:id/details/:mediaType" element={<MoviesDetails/>} />

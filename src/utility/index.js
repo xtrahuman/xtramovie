@@ -8,6 +8,16 @@ export const localBackendUrl = "http://127.0.0.1:3003";
 
 export const imageUrl = "https://image.tmdb.org";
 
+export const getRating = (onlyMovies) => {
+  let rating =  onlyMovies.rating > 0 ? onlyMovies.rating.toFixed(1) : 0
+  if (rating) {
+   rating = rating/2
+   rating = rating.toFixed(1)
+  }
+
+   return rating
+ }
+
 export const nextPage = (total_pages, page_no = 1) => {
   if (page_no < total_pages) {
     page_no += 1;

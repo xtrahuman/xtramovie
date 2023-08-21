@@ -137,7 +137,7 @@ const Navbar = () => {
                       {({ active }) => (
                         <>
                           <NavLink
-                            // to={`/users/${currentUser?.slug}`}
+                            to={`/userprofile`}
                             className={classNames(
                               active ? "bg-gray-100" : "",
                               "block px-4 py-2 text-sm text-white cursor-pointer hover:text-[#e4d804]"

@@ -75,10 +75,10 @@ export const submitWatchlist = (usertoken, watchlist) => (dispatch) => {
     .then((response) => {
       console.log("working");
       dispatch(postWatchlistSuccess(response.data));
-      dispatch(getWatchlist(usertoken))
-      setTimeout(function() {
-        dispatch(postWatchlistSuccess({message: null}));
-    }, 4000)
+      dispatch(getWatchlist(usertoken));
+      setTimeout(function () {
+        dispatch(postWatchlistSuccess({ message: null }));
+      }, 4000);
     })
     .catch((err) => {
       dispatch(postWatchlistFailure(err.response?.data?.error));
@@ -103,20 +103,28 @@ export const getWatchlist = (usertoken) => (dispatch) => {
     });
 };
 
-// export const getMoviesDetails = (movieId) => (dispatch) => {
-//   dispatch(getwatchlistsStart());
-//   axios
-//     .get(`${url}/3/movie/${movieId}`, {
-//       headers: {
-//         Authorization: `${authorization}`,
-//       },
-//     })
-//     .then((response) => {
-//       dispatch(getMovieDetailSuccess(response.data));
-//     })
-//     .catch((err) => {
-//       dispatch(getMovieDetailFailure(err.response?.data?.error));
-//     });
-// };
+export const deleteWatchlist = (usertoken, listId, user_id) => (dispatch) => {
+  dispatch(deleteWatchlistStart());
+  console.log(user_id)
+  const headers = {
+    Authorization: `Bearer ${usertoken}`,
+  };
+  axios
+    .delete(
+      `${localBackendUrl}/watchlists/${listId}`,
+      {
+        headers: headers,
+        data: {'user_id': user_id}
+    }
+    )
+    .then((response) => {
+      console.log("working");
+      dispatch(deleteWatchlistSuccess(response.data));
+      dispatch(getWatchlist(usertoken));
+    })
+    .catch((err) => {
+      dispatch(deleteWatchlistFailure(err.response?.data?.error));
+    });
+};
 
 export default submitWatchlist;

@@ -365,6 +365,11 @@ body {
   cursor: pointer;
 }
 
+.rr--group{
+  width: 40% important!;
+  top:0;
+}
+
 /* input:focus {
 
 } */

@@ -4,7 +4,6 @@ import {
     GETLOGINFAILURE,
     LOGOUT,
     AUTHENTICATED,
-    // GETMOVIEDETAILSUCCESS,
   } from "./action";
   
   const INITIAL_STATE = {
