@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authorization, localBackendUrl, imageUrl } from "../../utility";
+import { localBackendUrl } from "../../utility";
 export const AUTHENTICATED  = "authenticated/getstatus";
 export const GETLOGINSTART = "login/getall/start";
 export const GETMOVIEDETAILSTART = "moviedetail/getall/start";
@@ -21,7 +21,6 @@ const getUserProfile  = (user) => ({
 export const setAuthenticated = (loggedInUser) => (dispatch) => {
 let user
 dispatch(getloginStart());
-console.log('authenticating', loggedInUser.token)
 const headers = {
   'Authorization': `Bearer ${loggedInUser.token}`
 }
@@ -29,7 +28,6 @@ axios
 .get(`${localBackendUrl}/users/${loggedInUser.userId}`, {headers})
 .then((response) => {
   user = response.data
-  console.log('authenticatingworked',user);
   dispatch(getUserProfile(user))
 })
 .catch((err) => {
@@ -46,21 +44,9 @@ localStorage.removeItem("user");
 
 
 const getloginSuccess = (result) => {
-//   let moviesResult = {
-//     page_no: result.page,
-//     total_pages: result.total_pages,
-//     movies: [],
-//   };
 
-  console.log(result)
-//   result = result.results;
 let user = result
-console.log(user)
-//   let user = result.map((result) => ({
 
-//   }));
-
-//   moviesResult.movies = movies;
   return {
     type: GETLOGINSUCCESS,
     payload: user,

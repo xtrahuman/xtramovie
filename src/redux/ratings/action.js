@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authorization, localBackendUrl, imageUrl } from "../../utility";
+import { localBackendUrl } from "../../utility";
 export const GETRATINGSTART = "rating/moviedetail/start";
 export const POSTRATINGSTART = "rating/post/start";
 export const DELETERATINGSTART = "rating/delete/start";
@@ -18,9 +18,9 @@ const postRatingStart = () => ({
   type: POSTRATINGSTART,
 });
 
-const deleteRatingStart = () => ({
-  type: DELETERATINGSTART,
-});
+// const deleteRatingStart = () => ({
+//   type: DELETERATINGSTART,
+// });
 
 const getRatingSuccess = (result) => {
   return {
@@ -38,14 +38,14 @@ const postRatingSuccess = (result) => {
   };
 };
 
-const deleteRatingSuccess = (result) => {
-  let message = result.message;
+// const deleteRatingSuccess = (result) => {
+//   let message = result.message;
 
-  return {
-    type: DELETERATINGSUCCESS,
-    payload: message,
-  };
-};
+//   return {
+//     type: DELETERATINGSUCCESS,
+//     payload: message,
+//   };
+// };
 
 const getRatingFailure = (error) => ({
   type: GETRATINGFAILURE,
@@ -57,10 +57,10 @@ const postRatingFailure = (error) => ({
   payload: error,
 });
 
-const deleteWatchlistFailure = (error) => ({
-  type: DELETERATINGFAILURE,
-  payload: error,
-});
+// const deleteWatchlistFailure = (error) => ({
+//   type: DELETERATINGFAILURE,
+//   payload: error,
+// });
 
 export const submitRating = (usertoken, ratingInfo, setRating,findRate,userId) => (dispatch) => {
   dispatch(postRatingStart());

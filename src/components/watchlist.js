@@ -1,15 +1,14 @@
 import { v4 as uuidv4 } from "uuid";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Navbar from "./navbar";
 import FooterSection from "./footer";
-import { userprofile } from "../utility";
 import { useSelector, useDispatch } from "react-redux";
 import { getWatchlist, deleteWatchlist } from "../redux/watchlist/action";
 
 export default function WatchList() {
   const dispatch = useDispatch();
-  const { message, error, watchlist } = useSelector((state) => state.watchlist);
-
+  const { watchlist } = useSelector((state) => state.watchlist);
+  const { loggedin } = useSelector((state) => state.userDetails);
   useEffect(() => {
     const userprofile = JSON.parse(localStorage.getItem("user"));
     if (userprofile) {
@@ -26,10 +25,6 @@ export default function WatchList() {
 
       dispatch(deleteWatchlist(token, id, user_id));
     } else {
-      //   setAddWatchListError(true)
-      //   setTimeout(function() {
-      //     setAddWatchListError(false)
-      // }, 4000)
       console.log("error");
     }
   };
@@ -37,32 +32,28 @@ export default function WatchList() {
   return (
     <>
       <Navbar />
-      <div className="flex justify-center">
-        <div className="flex w-[90%] mt-[40px] gap-5 flex-col">
-          <h2 className="text-xl mb-6">WatchList</h2>
-          {watchlist.length ? (
-            watchlist?.map(
-              ({ buy_price, movie_name, summary, image_url, id }) => (
-                <div key={uuidv4()} className="flex gap-7">
-                  <div className="w-[20%]">
+      {loggedin ? (
+        <div className="flex justify-center">
+          <div className="flex w-[90%] mt-[40px] gap-5 flex-col">
+            <h2 className="text-xl mb-6">WatchList</h2>
+            {watchlist.length ? (
+              watchlist?.map(({ buy_price, movie_name, image_url, id }) => (
+                <div key={uuidv4()} className="flex w-full gap-7">
+                  <div className="w-[40%] lg:w-[20%] md:w-[30%]">
                     <img
                       src={image_url}
                       alt="gallery"
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "contain",
-                      }}
+                      className="w-full lg:h-[auto] md:h-[auto]"
                     />
                   </div>
-                  <div className="flex flex-col gap-2 place-self-end">
+                  <div className="flex lg:w-[80%] md:w-[60%] w-[50%] flex-col gap-2 place-self-end">
                     <div className="flex gap-1 items-center">
-                    <h3 className="text-lg">name:</h3>
-                    <p className="text-base">{movie_name}</p>
+                      <h3 className="text-lg">name:</h3>
+                      <p className="text-base crop-text">{movie_name}</p>
                     </div>
                     <div className="flex gap-1 items-center">
-                    <p className="text-lg">price:</p>
-                    <span className="text-base">&pound;{buy_price}</span>
+                      <p className="text-lg">price:</p>
+                      <span className="text-base">&pound;{buy_price}</span>
                     </div>
                     <div key={10}>
                       <div className="flex gap-2">
@@ -79,38 +70,44 @@ export default function WatchList() {
                     </div>
                   </div>
                 </div>
-              )
-            )
-          ) : (
-            <p>you have no movies in your watchlist</p>
-          )}
+              ))
+            ) : (
+              <p>you have no movies in your watchlist</p>
+            )}
 
-          <div className="flex flex-col order-style my-10 cart-border">
-            <div className="mb-2 text-base">
-              <span className="cart-order-title">Tax: </span>
-              <span className="cart-order-value">
-                &pound;{watchlist.length * 4}
-              </span>
+            <div className="flex flex-col order-style my-10 cart-border">
+              <div className="mb-2 text-base">
+                <span className="cart-order-title">Tax: </span>
+                <span className="cart-order-value">
+                  &pound;{watchlist.length * 4}
+                </span>
+              </div>
+              <div className="mb-2 text-base">
+                <span className="cart-order-title">Qty: </span>
+                <span className="cart-order-value">{watchlist.length}</span>
+              </div>
+              <div className="mb-2 text-base">
+                <span className="cart-order-title">Total including tax: </span>
+                <span className="cart-order-value">
+                  &pound;
+                  {watchlist?.reduce((accumulator, item) => {
+                    return accumulator + item.buy_price;
+                  }, 0) +
+                    watchlist.length * 4}
+                </span>
+              </div>
+              <button className="bg-[#e4d804] w-[120px] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
+                buy all
+              </button>
             </div>
-            <div className="mb-2 text-base">
-              <span className="cart-order-title">Qty: </span>
-              <span className="cart-order-value">{watchlist.length}</span>
-            </div>
-            <div className="mb-2 text-base">
-              <span className="cart-order-title">Total including tax: </span>
-              <span className="cart-order-value">
-                &pound;
-                {watchlist?.reduce((accumulator, item) => {
-                  return accumulator + item.buy_price;
-                }, 0) + (watchlist.length * 4)}
-              </span>
-            </div>
-            <button className="bg-[#e4d804] w-[120px] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
-              buy all
-            </button>
           </div>
         </div>
-      </div>
+      ) : (
+        <p className="text-center text-xl py-[200px]">
+          log in to view watchlist
+        </p>
+      )}
+
       <hr className="border-1 border-[#0D1B2A] mt-10" />
       <FooterSection />
     </>

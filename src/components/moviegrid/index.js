@@ -8,7 +8,7 @@ import { getMoviesDetails } from "../../redux/moviesonly/action";
 import { useNavigate } from "react-router-dom";
 import { scrollToTop } from "../../utility";
 import { submitWatchlist, getWatchlist } from "../../redux/watchlist/action";
-import { userprofile, getRating } from "../../utility";
+import { getRating } from "../../utility";
 
 export const getYear = (arr) => {
   let year = arr.split("-");
@@ -19,14 +19,13 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [addWatchlistError, setAddWatchListError] = useState(false);
-  const { message, error, watchlist } = useSelector((state) => state.watchlist);
+  const { message, watchlist } = useSelector((state) => state.watchlist);
+  const [buyError, setBuyError] = useState(false);
   const { loggedin } = useSelector((state) => state.userDetails);
 
   const handleOtherPage = (pageFunc, page_no, total_pages) => {
     dispatch(getMovies(pageFunc(page_no, total_pages)));
   };
-
-  console.log(message);
 
   useEffect(() => {
     const userprofile = JSON.parse(localStorage.getItem("user"));
@@ -62,8 +61,14 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
 
   const findItem = (items, id) => {
     const itemExist = items?.find((item) => item.movie_id === id);
-    // console.log(items,'itemss')
     return itemExist ? true : false;
+  };
+
+  const handleBuy = () => {
+    setBuyError(true);
+    setTimeout(function () {
+      setBuyError(false);
+    }, 4000);
   };
 
   return (
@@ -76,6 +81,14 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
         {" "}
         kindly sign in to access
       </p>
+      <p
+          className={`fixed top-[90px] bg-[#0D1B2A] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] text-red-500 ${
+            !buyError ? "hidden right-[-100px]" : ""
+          }`}
+        >
+          {" "}
+          payment feature not integrated, please add to watchlist
+        </p>
       <p
         className={`fixed top-[90px] bg-[#0D1B2A] text-[#e4d804] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] ${
           !message ? "hidden right-[-100px]" : ""
@@ -126,16 +139,16 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
             </div>
             <div className="flex justify-between">
               <div className="flex flex-wrap gap-2 relative">
-                <button className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
+                <button className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base"
+                onClick={handleBuy}>
                   Buy
                 </button>
                 {!findItem(watchlist, movie.id) || !loggedin ? (
                   <button
                     onClick={() => {
-                      console.log(movie.summary, "testing summary");
                       const watchlistObj = {
                         buy_price:
-                          (movie.media_type || mediaType) == "movie" ? 10 : 12,
+                          (movie.media_type || mediaType) === "movie" ? 10 : 12,
                         rent_price: 5.0,
                         movie_name: movie.name,
                         release_date: movie.release_date,
@@ -156,7 +169,7 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
                   </p>
                 )}
               </div>
-              {(movie.media_type || mediaType) == "movie" ? (
+              {(movie.media_type || mediaType) === "movie" ? (
                 <p className="text-[18px]">
                   <span>&pound;</span>
                   <span>10</span>

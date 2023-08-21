@@ -1,5 +1,5 @@
 import axios from "axios";
-import { authorization, localBackendUrl, imageUrl } from "../../utility";
+import { localBackendUrl } from "../../utility";
 export const GETWATCHLISTSTART = "watchlist/getall/start";
 export const POSTWATCHLISTSTART = "watchlist/post/start";
 export const DELETEWATCHLISTSTART = "watchlist/delete/start";

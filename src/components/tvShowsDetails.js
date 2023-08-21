@@ -1,7 +1,6 @@
 import Container from "./container";
 import Navbar from "./navbar";
 import FooterSection from "./footer";
-import { AiOutlineStar } from "react-icons/ai";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -12,13 +11,14 @@ import Comment from "./comments/comment";
 import submitWatchlist from "../redux/watchlist/action";
 import { getWatchlist } from "../redux/watchlist/action";
 import { getRating } from "../utility";
-import { Rating, Star } from "@smastrom/react-rating";
+import { Rating } from "@smastrom/react-rating";
 import { getMovieRating, submitRating } from "../redux/ratings/action";
 
 const TvShowsDetails = () => {
   const dispatch = useDispatch();
   const [addWatchlistError, setAddWatchListError] = useState(false);
-  const { message, error, watchlist } = useSelector((state) => state.watchlist);
+  const [buyError, setBuyError] = useState(false);
+  const { message, watchlist } = useSelector((state) => state.watchlist);
   const { loggedin } = useSelector((state) => state.userDetails);
   const { key, tvshows } = useSelector((state) => state.tvshows);
   const [rating, setRating] = useState(0);
@@ -65,14 +65,12 @@ const TvShowsDetails = () => {
   }, [tvshows]);
 
   function handleChange(selectedValue, movie_id) {
-    // 1. Logs the selected rating (1, 2, 3...)
     const rating_info = {
       movie_id,
       rate: selectedValue,
     };
     const userprofile = JSON.parse(localStorage.getItem("user"));
     if (userprofile) {
-      console.log("change working");
       dispatch(
         submitRating(
           userprofile.token,
@@ -129,15 +127,20 @@ const TvShowsDetails = () => {
 
   const findItem = (items, id) => {
     const itemExist = items?.find((item) => item.movie_id === id);
-    // console.log(items,'itemss')
+
     return itemExist ? true : false;
   };
 
   const findRate = (items, id) => {
     const itemExist = items?.find((item) => item.user_id === id);
-    // console.log(items,'itemss')
-    console.log("working rate", items);
     return itemExist ? itemExist.rate : 0;
+  };
+
+  const handleBuy = () => {
+    setBuyError(true);
+    setTimeout(function () {
+      setBuyError(false);
+    }, 4000);
   };
   return (
     <>
@@ -150,6 +153,14 @@ const TvShowsDetails = () => {
         >
           {" "}
           kindly sign in to access
+        </p>
+        <p
+          className={`fixed top-[90px] bg-[#0D1B2A] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] text-red-500 ${
+            !buyError ? "hidden right-[-100px]" : ""
+          }`}
+        >
+          {" "}
+          payment feature not integrated, please add to watchlist
         </p>
         <p
           className={`fixed top-[90px] bg-[#0D1B2A] text-[#e4d804] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] ${
@@ -204,7 +215,10 @@ const TvShowsDetails = () => {
             </div>
             <div className="mt-4">
               <div className="flex flex-wrap gap-2 relative">
-                <button className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
+                <button
+                  className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base"
+                  onClick={handleBuy}
+                >
                   Buy
                 </button>
                 {!findItem(watchlist, tvshows.id) || !loggedin ? (
@@ -223,7 +237,6 @@ const TvShowsDetails = () => {
                         movie_id: tvshows.id,
                         summary: tvshows.summary,
                       };
-                      console.log(watchlistObj, "testing summary");
                       handleWatchListSubmission(watchlistObj);
                     }}
                     className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base"

@@ -1,7 +1,6 @@
 import Container from "./container";
 import Navbar from "./navbar";
 import FooterSection from "./footer";
-import { AiOutlineStar } from "react-icons/ai";
 import { BsFillBookmarkHeartFill } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -11,7 +10,7 @@ import { getMoviesDetails } from "../redux/moviesonly/action";
 import Comment from "./comments/comment";
 import submitWatchlist from "../redux/watchlist/action";
 import { getWatchlist } from "../redux/watchlist/action";
-import { Rating, Star } from "@smastrom/react-rating";
+import { Rating } from "@smastrom/react-rating";
 import { getRating } from "../utility";
 import { getMovieRating, submitRating } from "../redux/ratings/action";
 
@@ -19,11 +18,10 @@ const MoviesDetails = () => {
   const dispatch = useDispatch();
   const { key, onlyMovies } = useSelector((state) => state.onlyMovies);
   const [addWatchlistError, setAddWatchListError] = useState(false);
-  const { message, error, watchlist } = useSelector((state) => state.watchlist);
+  const { message, watchlist } = useSelector((state) => state.watchlist);
   const { loggedin } = useSelector((state) => state.userDetails);
-  const { rate_average, count, movie_ratings } = useSelector(
-    (state) => state.rateInfo
-  );
+
+  const [buyError, setBuyError] = useState(false);
   const [rating, setRating] = useState(0);
   const { mediaType, id } = useParams();
   const [submitStatus, setSubmitStatus] = useState(false);
@@ -44,7 +42,6 @@ const MoviesDetails = () => {
           userprofile.userId
         )
       );
-      
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitStatus]);
@@ -140,6 +137,13 @@ const MoviesDetails = () => {
     console.log("working rate", items);
     return itemExist ? itemExist.rate : 0;
   };
+
+  const handleBuy = () => {
+    setBuyError(true);
+    setTimeout(function () {
+      setBuyError(false);
+    }, 4000);
+  };
   return (
     <>
       <Navbar />
@@ -151,6 +155,14 @@ const MoviesDetails = () => {
         >
           {" "}
           kindly sign in to access
+        </p>
+        <p
+          className={`fixed top-[90px] bg-[#0D1B2A] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] text-red-500 ${
+            !buyError ? "hidden right-[-100px]" : ""
+          }`}
+        >
+          {" "}
+          payment feature not integrated, please add to watchlist
         </p>
         <p
           className={`fixed top-[90px] bg-[#0D1B2A] text-[#e4d804] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] ${
@@ -205,7 +217,10 @@ const MoviesDetails = () => {
             </div>
             <div className="mt-4">
               <div className="flex flex-wrap gap-2 relative">
-                <button className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
+                <button
+                  className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base"
+                  onClick={handleBuy}
+                >
                   Buy
                 </button>
                 {!findItem(watchlist, onlyMovies.id) || !loggedin ? (
