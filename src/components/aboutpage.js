@@ -16,7 +16,7 @@ const AboutPage = () => (
             Redux for efficient state management. The user interface was
             enhanced with the implementation of Tailwind CSS, providing
             convenient styling capabilities. To populate the movie data, the
-            application seamlessly integrates with the themoviedb API, enabling
+            application seamlessly integrates with the themoviedb API and the backend built with ruby on rails for this project, enabling
             the display of a vast collection of movies. This project serves as a
             fundamental component of my web development course, designed
             primarily for educational purposes. The movie app allows users to

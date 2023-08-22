@@ -3,6 +3,7 @@ import linkedinIcon from "../../asset/icons8-linkedin.svg"
 import mediumIcon from "../../asset/icons8-medium.svg"
 import twitterIcon from "../../asset/icons8-twitter.svg"
 import Container from "../container"
+import { NavLink } from "react-router-dom"
 
 const FooterSection = () => {
 
@@ -10,7 +11,7 @@ const FooterSection = () => {
         {
             heading: "XtraMovie",
             childs: ['about us', 'my profile', 'contacts'],
-            childUrls: ['#aboutus','#myprofile', '#contacts']
+            childUrls: ['/about','/userprofile', '/userprofile']
         },
         {
             heading: "subscription",
@@ -38,7 +39,7 @@ const FooterSection = () => {
                     <li key={heading} className="flex basis-1/4 flex-col mobile-flex-ft">
                         <h5>{heading}</h5>
                         {childs.map((child,index) => 
-                        <a href={childUrls[index]} key={child} className="text-[#ffffffb3]">{child}</a>
+                        <NavLink to={childUrls[index]} key={child} className="text-[#ffffffb3]">{child}</NavLink>
                         )}
                     </li>
                     )

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect  } from "react";
+import React, { Fragment, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Icon from "../asset/XtraMovieLogo.png";
 import Container from "./container";
@@ -7,6 +7,8 @@ import { Menu, Transition } from "@headlessui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, setAuthenticated } from "../redux/authentication/action";
 import { userprofile } from "../utility";
+import { BsChevronDown } from "react-icons/bs";
+import { GoSignIn } from "react-icons/go";
 
 const NavVariable = [
   {
@@ -65,7 +67,6 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(" ");
   };
@@ -112,14 +113,17 @@ const Navbar = () => {
                 <div>
                   <Menu.Button className="bg-gray-800 p-3 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:[#e4d804]">
                     <span className="sr-only">Open user menu</span>
-                    <div className="overflow-hidden">
+                    <div className="overflow-hidden flex gap-1 items-center">
                       {/* <UserPhoto
                   photo={currentUser?.photo}
                   altText={currentUser?.full_name}
                   slug=""
                   size="medium"
                 /> */}
-                      {user.user?.username || user?.username}
+                      <span>{user.user?.username || user?.username}</span>
+                      <span>
+                        <BsChevronDown />
+                      </span>
                     </div>
                   </Menu.Button>
                 </div>
@@ -184,22 +188,20 @@ const Navbar = () => {
             <li key="login">
               <NavLink
                 to="/login"
-                className={(navData) =>
-                  navData.isActive ? "text-[#e4d804]" : ""
-                }
+                className={`${(navData) =>
+                  navData.isActive ? "text-[#e4d804]" : ""}
+                flex gap-1 items-center`}
                 onClick={closeMobileMenu}
               >
-                Signin
+                <span>Signin</span>
+                <span className="text-[#e4d804]">
+                  <GoSignIn />
+                </span>
               </NavLink>
             </li>
           )}
         </ul>
       </nav>
-      {/* <div
-        style={{
-          height: sticky ? `${stickyRef.current?.clientHeight}px` : '0px',
-        }}
-      /> */}
     </Container>
   );
 };
