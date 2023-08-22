@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { scrollToTop } from "../../utility";
 import { submitWatchlist, getWatchlist } from "../../redux/watchlist/action";
 import { getRating } from "../../utility";
+import transparentgif from "../../asset/transparentgif.gif"
 
 export const getYear = (arr) => {
   let year = arr.split("-");
@@ -19,7 +20,7 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [addWatchlistError, setAddWatchListError] = useState(false);
-  const { message, watchlist } = useSelector((state) => state.watchlist);
+  const { listLoading, message, watchlist } = useSelector((state) => state.watchlist);
   const [buyError, setBuyError] = useState(false);
   const { loggedin } = useSelector((state) => state.userDetails);
 
@@ -159,9 +160,10 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
                       };
                       handleWatchListSubmission(watchlistObj);
                     }}
-                    className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base"
+                    className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] relative text-[#e4d804] px-4 py-1 rounded-md text-base"
                   >
                     Add to watchlist
+                    <img src={transparentgif} className={`w-[30px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] h-[auto] ${listLoading ? '' : 'hidden' }`} alt='loading'/>
                   </button>
                 ) : (
                   <p className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base">

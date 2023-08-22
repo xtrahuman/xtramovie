@@ -13,12 +13,13 @@ import { getWatchlist } from "../redux/watchlist/action";
 import { Rating } from "@smastrom/react-rating";
 import { getRating } from "../utility";
 import { getMovieRating, submitRating } from "../redux/ratings/action";
+import transparentgif from "../asset/transparentgif.gif"
 
 const MoviesDetails = () => {
   const dispatch = useDispatch();
   const { key, onlyMovies } = useSelector((state) => state.onlyMovies);
   const [addWatchlistError, setAddWatchListError] = useState(false);
-  const { message, watchlist } = useSelector((state) => state.watchlist);
+  const { listLoading, message, watchlist } = useSelector((state) => state.watchlist);
   const { loggedin } = useSelector((state) => state.userDetails);
 
   const [buyError, setBuyError] = useState(false);
@@ -242,9 +243,16 @@ const MoviesDetails = () => {
                       console.log(watchlistObj, "testing summary");
                       handleWatchListSubmission(watchlistObj);
                     }}
-                    className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base"
+                    className="bg-[#0D1B2A] relative h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base"
                   >
                     Add to watchlist
+                    <img
+                      src={transparentgif}
+                      className={`w-[30px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] h-[auto] ${
+                        listLoading ? "" : "hidden"
+                      }`}
+                      alt="loading"
+                    />
                   </button>
                 ) : (
                   <p className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base">

@@ -1,14 +1,16 @@
 import { v4 as uuidv4 } from "uuid";
-import React, { useEffect } from "react";
+import React, { useEffect, useState} from "react";
 import Navbar from "./navbar";
 import FooterSection from "./footer";
 import { useSelector, useDispatch } from "react-redux";
 import { getWatchlist, deleteWatchlist } from "../redux/watchlist/action";
+import transparentgif from "../asset/transparentgif.gif";
 
 export default function WatchList() {
   const dispatch = useDispatch();
-  const { watchlist } = useSelector((state) => state.watchlist);
+  const { listLoading, watchlist } = useSelector((state) => state.watchlist);
   const { loggedin } = useSelector((state) => state.userDetails);
+  const [buyError, setBuyError] = useState(false);
   useEffect(() => {
     const userprofile = JSON.parse(localStorage.getItem("user"));
     if (userprofile) {
@@ -29,11 +31,26 @@ export default function WatchList() {
     }
   };
 
+  const handleBuy = () => {
+    setBuyError(true);
+    setTimeout(function () {
+      setBuyError(false);
+    }, 4000);
+  };
+
   return (
     <>
       <Navbar />
       {loggedin ? (
         <div className="flex justify-center">
+          <p
+            className={`fixed top-[90px] bg-[#0D1B2A] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] text-red-500 ${
+              !buyError ? "hidden right-[-100px]" : ""
+            }`}
+          >
+            {" "}
+            payment feature not yet integrated
+          </p>
           <div className="flex w-[90%] mt-[40px] gap-5 flex-col">
             <h2 className="text-xl mb-6">WatchList</h2>
             {watchlist.length ? (
@@ -57,14 +74,24 @@ export default function WatchList() {
                     </div>
                     <div key={10}>
                       <div className="flex gap-2">
-                        <button className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
+                        <button
+                          onClick={handleBuy}
+                          className="bg-[#e4d804] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base"
+                        >
                           Buy
                         </button>
                         <button
                           onClick={() => handleWatchListdelete(id)}
-                          className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base"
+                          className="bg-[#0D1B2A] relative h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base"
                         >
                           Remove
+                          <img
+                            src={transparentgif}
+                            className={`w-[30px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] h-[auto] ${
+                              listLoading ? "" : "hidden"
+                            }`}
+                            alt="loading"
+                          />
                         </button>
                       </div>
                     </div>
@@ -96,7 +123,10 @@ export default function WatchList() {
                     watchlist.length * 4}
                 </span>
               </div>
-              <button className="bg-[#e4d804] w-[120px] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base">
+              <button
+                onClick={handleBuy}
+                className="bg-[#e4d804] w-[120px] h-[#40px] border-3 border-[#0D1B2A] text-[#0D1B2A] px-4 py-1 rounded-md text-base"
+              >
                 buy all
               </button>
             </div>
