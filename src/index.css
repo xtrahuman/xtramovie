@@ -156,6 +156,10 @@ body {
     font-weight: 500;
   }
 
+  .nav-flex .mobile-login {
+    margin-bottom: 40px;
+  }
+
   .nav-flex ul li.active {
     display: none;
     margin-top: 0;

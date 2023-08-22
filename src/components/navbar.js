@@ -168,7 +168,7 @@ const Navbar = () => {
                             onClick={() => dispatch(logout())}
                             className={classNames(
                               active ? "bg-gray-100" : "",
-                              "block px-4 py-2 text-sm text-white cursor-pointer hover:text-[#e4d804]"
+                              "mobile-login block px-4 py-2 text-sm text-white cursor-pointer hover:text-[#e4d804]"
                             )}
                           >
                             Logout
