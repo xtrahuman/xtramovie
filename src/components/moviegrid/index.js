@@ -46,9 +46,9 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
     scrollToTop();
   };
 
-  const handleWatchListSubmission = (obj) => {
+  const handleWatchListSubmission = (obj, loggedin) => {
     const userprofile = JSON.parse(localStorage.getItem("user"));
-    if (userprofile) {
+    if (loggedin) {
       const token = userprofile.token;
 
       dispatch(submitWatchlist(token, obj));
@@ -158,12 +158,12 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
                         movie_id: movie.id,
                         summary: movie.summary,
                       };
-                      handleWatchListSubmission(watchlistObj);
+                      handleWatchListSubmission(watchlistObj, loggedin);
                     }}
                     className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] relative text-[#e4d804] px-4 py-1 rounded-md text-base"
                   >
                     Add to watchlist
-                    <img src={transparentgif} className={`w-[30px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] h-[auto] ${listLoading ? '' : 'hidden' }`} alt='loading'/>
+                    <img src={transparentgif} className={`w-[30px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] h-[auto] ${listLoading && loggedin? '' : 'hidden' }`} alt='loading'/>
                   </button>
                 ) : (
                   <p className="bg-[#0D1B2A] h-[#40px] border-3 border-[#e4d804] text-[#e4d804] px-4 py-1 rounded-md text-base">

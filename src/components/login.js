@@ -9,7 +9,7 @@ function Login({ page }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { userLoading } = useSelector((state) => state.userDetails);
+  const { userLoading, loggedin, error } = useSelector((state) => state.userDetails);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,8 +52,8 @@ function Login({ page }) {
           signup
         </NavLink>
       </div>
-      <img src={'https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif'} className={`w-[30px] h-[auto] ${userLoading ? '' : 'hidden' }`} alt='loading'/>
-      
+      <img src={'https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif'} className={`w-[30px] h-[auto] ${userLoading && !loggedin ? '' : 'hidden' }`} alt='loading'/>
+      <p className={`${error && !userLoading?'':'hidden'} text-center text-[red]`}>{error}</p>
 
       <div className="text-sm text-center relative top-[120px]">
          <p>please Signup or use the details below to test login</p>

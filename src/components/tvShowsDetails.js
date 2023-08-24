@@ -246,7 +246,7 @@ const TvShowsDetails = () => {
                     <img
                       src={transparentgif}
                       className={`w-[30px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%] h-[auto] ${
-                        listLoading ? "" : "hidden"
+                        listLoading && loggedin ? "" : "hidden"
                       }`}
                       alt="loading"
                     />
