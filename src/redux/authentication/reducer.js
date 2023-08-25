@@ -30,6 +30,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         userLoading: false,
         user: action.payload,
         loggedin: true,
+        error: null,
       };
     case GETLOGINFAILURE:
       return {
@@ -44,6 +45,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         userLoading: false,
         loggedin: false,
+        error: null,
         user: {},
       };
     default:
