@@ -12,8 +12,13 @@ import { getRating } from "../../utility";
 import transparentgif from "../../asset/transparentgif.gif"
 
 export const getYear = (arr) => {
-  let year = arr.split("-");
-  return year[0];
+  if (arr){
+    let year = arr.split("-");
+    return year[0] 
+  } else {
+    return 'date'
+  }
+
 };
 
 const MovieGrid = ({ movies, getMovies, mediaType }) => {
@@ -73,7 +78,9 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
   };
 
   return (
+    <>
     <section>
+      
       <p
         className={`fixed top-[90px] bg-[#0D1B2A] py-2 px-3 right-[40px] transition ease-in-out delay-150 z-[5] text-red-500 ${
           !addWatchlistError ? "hidden right-[-100px]" : ""
@@ -136,7 +143,7 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
             </div>
             <div className="flex justify-between my-3">
               <h4 className="crop-text mr-4">{movie.name}</h4>
-              <span>{getYear(movie.release_date)}</span>
+              <span>{getYear(movie.release_date) || null}</span>
             </div>
             <div className="flex justify-between">
               <div className="flex flex-wrap gap-2 relative">
@@ -211,6 +218,7 @@ const MovieGrid = ({ movies, getMovies, mediaType }) => {
         </button>
       </div>
     </section>
+  </>
   );
 };
 
